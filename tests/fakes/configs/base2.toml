@@ -1,0 +1,13 @@
+[tool.pysen]
+builder = "good_builder.py"
+
+[tool.pysen.lint]
+enable_black = true
+line_length = 80
+isort_known_third_party = ["hoge"]
+
+[tool.pysen.plugin.ok]
+function = "foo::bar"
+
+[tool.pysen.plugin.ok.config]
+message = "hello ok from base2"

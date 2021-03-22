@@ -1,0 +1,28 @@
+[tool.pysen.lint]
+base = "base2.toml"
+enable_isort = true
+line_length = 88
+py_version = "py37"
+isort_known_third_party = ["fuga", "piyo"]
+isort_known_first_party = ["foo"]
+
+[tool.pysen.plugin.ok]
+function = "foo::bar"
+
+[tool.pysen.plugin.ok.config]
+  base = "base2.toml"
+  message = "hello ok from base"
+
+[tool.pysen.plugin.error-nosection]
+function = "foo::bar"
+
+[tool.pysen.plugin.error-nosection.config]
+  base = "base2.toml"
+  message = "hello error from base"
+
+[tool.pysen.plugin.error-nofile]
+function = "foo::bar"
+
+[tool.pysen.plugin.error-nofile.config]
+  base = "base99.toml"
+  message = "hello error from base"

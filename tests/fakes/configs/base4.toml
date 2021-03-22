@@ -1,0 +1,6 @@
+[tool.pysen.plugin.ok]
+function = "foo::bar"
+
+[tool.pysen.plugin.ok.config]
+  base = "base3.toml"
+  message = "this message is not a message"

@@ -1,0 +1,3 @@
+[tool.nonpysen]
+# this pyproject.toml is used to check if pysen cli finds a pyproject that has [tool.pysen].
+# See test_pyproject.py for more details.

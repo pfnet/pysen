@@ -1,0 +1,25 @@
+[tool.pysen]
+builder = "./builder.py"
+
+[tool.pysen.lint]
+enable_flake8 = true
+enable_mypy = true
+
+[[tool.pysen.lint.mypy_targets]]
+  paths = ["."]
+
+[tool.pysen.plugin.shell]
+script = "plugin.py"
+
+[tool.pysen.plugin.shell.config]
+  name = "check ls"
+  command = ["ls"]
+  targets = ["lint", "hook"]
+
+[tool.pysen.plugin.pwd]
+script = "plugin.py"
+
+[tool.pysen.plugin.pwd.config]
+  name = "check pwd"
+  command = ["pwd"]
+  targets = ["hook"]

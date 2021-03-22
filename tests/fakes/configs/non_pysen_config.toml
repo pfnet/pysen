@@ -1,0 +1,3 @@
+[tool.nonpysen]
+line-length = 100
+target-version = ["py37"]

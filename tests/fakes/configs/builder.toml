@@ -1,0 +1,2 @@
+[tool.pysen]
+builder = "good_builder.py"

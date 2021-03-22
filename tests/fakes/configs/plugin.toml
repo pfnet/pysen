@@ -1,0 +1,12 @@
+[tool.pysen]
+
+[tool.pysen.plugin.hoge]
+script = "../plugin.py"
+
+[tool.pysen.plugin.fuga]
+function = "fakes.plugins::create"
+
+[tool.pysen.plugin.fuga.config]
+  message = "hello"
+  value = 10.0
+  flag = false

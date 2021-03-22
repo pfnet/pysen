@@ -1,0 +1,49 @@
+[tool.pysen-cli]
+settings_dir = "hoge"
+
+[tool.pysen]
+
+[tool.pysen.lint]
+enable_black = true
+enable_flake8 = false
+enable_isort = true
+enable_mypy = true
+mypy_preset = "strict"
+line_length = 88
+py_version = "py37"
+isort_known_first_party = ["alpha"]
+isort_known_third_party = ["beta", "gamma"]
+mypy_ignore_packages = ["pysen.stubs", "pysen.proto"]
+mypy_path = ["pysen-stubs"]
+isort_default_section = "thirdparty"
+
+[tool.pysen.lint.source]
+  includes = [".", "hoge"]
+  include_globs = ["**/*.template"]
+  excludes = ["fuga"]
+  exclude_globs = ["foo/*_pb2.py"]
+
+[[tool.pysen.lint.mypy_plugins]]
+  script = "./sugoi/plugin"
+
+[[tool.pysen.lint.mypy_plugins]]
+  function = "sugoi_plugin:entry"
+
+[tool.pysen.lint.mypy_modules."apple"]
+  preset = "entry"
+  follow_imports = "silent"
+
+[tool.pysen.lint.mypy_modules."banana"]
+  ignore_errors = true
+
+[tool.pysen.plugin.hoge]
+function = "fakes.plugin::create"
+
+[tool.pysen.plugin.hoge.config]
+  enable_c2 = true
+
+[tool.pysen.plugin.foo]
+function = "fakes.plugin::create"
+
+[tool.pysen.plugin.foo.config]
+enable_c1 = true
