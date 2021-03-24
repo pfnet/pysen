@@ -137,6 +137,17 @@ The result will look like the following:
 
 ![pysen-vim](https://github.com/pfnet/pysen/blob/main/assets/imgs/pysen_vim.gif?raw=true)
 
+### Emacs
+
+Refer to the [Compilation mode](https://www.gnu.org/software/emacs/manual/html_node/emacs/Compilation-Mode.html).
+The following is an example hook for python.
+```el
+(add-hook 'python-mode-hook
+    (lambda ()
+        (set (make-local-variable 'compile-command)
+            (concat "pysen run_files lint --error-format gnu  " buffer-file-name))))
+```
+
 ### VSCode
 
 Refer to the [example task setting](/assets/vscode/tasks.json).
@@ -218,3 +229,15 @@ $ pipenv lock --pre
 ```sh
 $ pipenv run tox
 ```
+
+## Contributing
+
+
+This repository serves only as a mirror of our main repository on our private repository.
+Therefore we do not plan to accept any pull requests.
+We encourage aspiring developers to make patches on their forked repositories.
+
+Also, our resource limitations force us to prioritize development
+to fulfill our corporate-specific demands.
+As such we will keep Issues closed for the foreseeable future.
+With a heavy heart we direct all questions, troubleshooting, feature requests and bug reports to `/dev/null`.
