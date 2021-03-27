@@ -67,6 +67,19 @@ diff_err3 = """--- /home/user/pysen/pysen/cli.py  2020-06-10 05:31:01.167304 +00
 
 """  # NOQA
 
+diff_err4 = """--- /home/user/pysen/foo.py        2021-03-25 16:43:53.875256 +0000
++++ /home/user/pysen/foo.py        2021-03-25 16:44:02.267033 +0000
+@@ -1,8 +1,5 @@
+ {
+     foo: "",
+-
+-
+     bar: [],
+-
+     baz: {},
+ }
+"""  # NOQA
+
 
 def test_standard_parser() -> None:
     err1, err2 = parse_error_lines(std_err)
@@ -134,7 +147,7 @@ def test_diff_parser() -> None:
     err = errors[0]
     assert err.start_line == 152
     assert err.end_line == 152
-    assert err.diff == "+\n"
+    assert err.diff == "+\n     parser.add_argument(\n"
 
     # has only source diff
     errors = list(parse_error_diffs(diff_err3, _parse_file_path))
@@ -143,3 +156,12 @@ def test_diff_parser() -> None:
     assert err.start_line == 152
     assert err.end_line == 152
     assert err.diff == "-\n\n"
+
+    # has multiple deletion
+    errors = list(parse_error_diffs(diff_err4, _parse_file_path))
+
+    assert len(errors) == 1
+    err1 = errors[0]
+    assert err1.start_line == 3
+    assert err1.end_line == 6
+    assert err1.diff == "-\n-\n     bar: [],\n-\n"

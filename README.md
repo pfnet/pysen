@@ -41,9 +41,9 @@ pip install "pysen[lint]"
 
 ```sh
 # pipenv
-pipenv install --dev "pysen[lint]==0.9.0"
+pipenv install --dev "pysen[lint]==0.9.1"
 # poetry
-poetry add -D pysen==0.9.0 -E lint
+poetry add -D pysen==0.9.1 -E lint
 ```
 
 

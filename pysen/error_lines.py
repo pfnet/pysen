@@ -1,7 +1,7 @@
 import logging
 import re
 from pathlib import Path
-from typing import Callable, Iterable, Optional
+from typing import Callable, Generator, Iterable, Optional
 
 import unidiff
 
@@ -90,10 +90,20 @@ def parse_error_diffs(
                 _warn_parse_error(patch, logger)
                 continue
 
+            def filter_hunk(
+                hunk: unidiff.patch.Hunk,
+            ) -> Generator[unidiff.patch.Line, None, None]:
+                for line in hunk:
+                    if _is_changed(line):
+                        yield line
+                    elif line.source_line_no is not None:
+                        if start_line <= line.source_line_no <= end_line:
+                            yield line
+
             yield Diagnostic(
                 start_line=start_line,
                 end_line=end_line,
                 start_column=1,
                 file_path=file_path,
-                diff="".join(map(str, filter(_is_changed, hunk))),
+                diff="".join(map(str, filter_hunk(hunk))),
             )
