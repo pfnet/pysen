@@ -57,7 +57,7 @@ def test__resolve() -> None:
     assert len(resolved) > 1
     assert all(str(x).startswith(str(BASE_DIR)) and x.suffix == ".py" for x in resolved)
 
-    # NOTE(igarashi): check base_dir of glob is overriden by setting
+    # NOTE(igarashi): check base_dir of glob is overridden by setting
     setting = SourceEntrySetting(glob=True, base_dir=BASE_DIR / "fakes")
     resolved_with_base = _resolve(BASE_DIR, "**/*.py", setting)
     assert len(resolved_with_base) > 1

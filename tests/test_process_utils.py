@@ -60,7 +60,7 @@ class HandlerException(Exception):
 
 class FailingHandler(logging.Handler):
     def emit(self, record: logging.LogRecord) -> None:
-        raise HandlerException("somebody screwded up")
+        raise HandlerException("somebody screwed up")
 
 
 @pytest.mark.parametrize(

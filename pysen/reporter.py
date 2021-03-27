@@ -146,7 +146,7 @@ class ReporterFactory:
 
     def format_error_summary(self) -> str:
         with io.StringIO() as buf:
-            buf.write("Errored:\n")
+            buf.write("Error:\n")
             for r in self._reporters:
                 if not r.success:
                     buf.write(" - {}\n".format(r.name))

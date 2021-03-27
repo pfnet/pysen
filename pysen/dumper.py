@@ -17,7 +17,7 @@ def dump_toml(path: pathlib.Path, setting: SettingFile) -> None:
         with path.open("r") as f:
             document = tomlkit.loads(f.read())
 
-    # NOTE(igarashi): TOMLDocument inherists Dict
+    # NOTE(igarashi): TOMLDocument inherits Dict
     entry = setting.entries()
     for p, d in sorted(entry):
         updated = SettingFile.update_by_entry(document, p, d)

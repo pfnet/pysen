@@ -53,7 +53,7 @@ def load_plugin(
         raise TypeError("must specify either function or script")
 
     if function is not None and script is not None:
-        raise TypeError("only one of function or script must be speicifed")
+        raise TypeError("only one of function or script must be specified")
 
     if function is not None:
         try:

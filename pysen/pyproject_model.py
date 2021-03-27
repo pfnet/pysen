@@ -98,7 +98,7 @@ def _parse_plugin_configs(base_dir: pathlib.Path, data: Any) -> List[PluginConfi
             )
 
         if config.function is not None and config.script is not None:
-            raise dacite.DaciteError("only one of function or script must be speicifed")
+            raise dacite.DaciteError("only one of function or script must be specified")
 
         result.append(config)
 

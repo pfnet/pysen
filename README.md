@@ -120,7 +120,7 @@ We currently provide tasks that manage setting files for the following tools:
 ## What isn't pysen?
 
 * pysen is not a linting tool per se. Rather, `pysen run lint` orchestrates multiple python linting tools by automatically setting up their configurations from a more abstract setting for pysen.
-* pysen does not manage your depedencies and packages. We recommend using package managers such as [pipenv](https://github.com/pypa/pipenv) or [poetry](https://python-poetry.org/) to lock your dependecy versions, **including the versions for the linting tools that pysen coordinates** (i.e., isort, mypy, flake8, black). The supported versions for these tools can be found in the `extra_requires/lint` section in pysen's [setup.py](https://github.com/pfnet/pysen/blob/main/setup.py). You should **not** rely on `pip install pysen[lint]` to control the versions of your linting tools.
+* pysen does not manage your dependencies and packages. We recommend using package managers such as [pipenv](https://github.com/pypa/pipenv) or [poetry](https://python-poetry.org/) to lock your dependency versions, **including the versions for the linting tools that pysen coordinates** (i.e., isort, mypy, flake8, black). The supported versions for these tools can be found in the `extra_requires/lint` section in pysen's [setup.py](https://github.com/pfnet/pysen/blob/main/setup.py). You should **not** rely on `pip install pysen[lint]` to control the versions of your linting tools.
 * pysen is not limited to linting purposes or python. See the [plugin section](README.md#create-a-plugin-to-customize-pysen) for details.
 
 ## How it works: Settings file directory
@@ -255,7 +255,7 @@ $ pipenv sync
 $ pipenv shell
 ```
 
-- Update depedencies in `Pipfile.lock`
+- Update dependencies in `Pipfile.lock`
 ```sh
 $ pipenv lock --pre
 ```
