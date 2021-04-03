@@ -150,13 +150,9 @@ The following is an example hook for python.
 
 ### VSCode
 
-Refer to the [example task setting](/assets/vscode/tasks.json).
-Running the task will populate your "PROBLEMS" window like so:
-
-![pysen-vscode](https://github.com/pfnet/pysen/blob/main/assets/imgs/pysen_vscode.jpg?raw=true)
+A [third party plugin](https://marketplace.visualstudio.com/items?itemName=bonprosoft.pysen-vscode) is available.
 
 Note that this may report duplicate errors if you have configured linters like `flake8` directly through your VSCode python extension.
-We do not currently recommend watching for file changes to trigger the task in large projects since `pysen` will check for all files and may consume a considerable amount of time.
 
 ## Configure pysen
 
