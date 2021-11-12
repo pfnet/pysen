@@ -335,7 +335,7 @@ def _load_pysen_section(path: pathlib.Path) -> Dict[str, Any]:
         section = pyproject["tool"]["pysen"]
     elif has_tool_section("jiro", pyproject):
         _logger.warning(
-            "jiro section under pyproject.toml is deprecated. Use pysen instead."
+            "jiro section under a config file is deprecated. Use pysen instead."
         )
         section = pyproject["tool"]["jiro"]
     else:
@@ -396,13 +396,13 @@ def _check_version(
 ) -> None:
     if config_version is None:
         _logger.warning(
-            "Consider specifying 'version' under [tool.pysen] section in your pyproject.toml "
+            "Consider specifying 'version' under [tool.pysen] section in your config "
             "to check compliance against the version of the installed pysen. "
             f"(File: {file_path})"
         )
     elif not config_version.is_compatible(actual_version):
         _logger.warning(
-            f"pyproject.toml specifies version {config_version}, "
+            f"config specifies version {config_version}, "
             f"but the pysen you are using is version {actual_version}, "
             "which might not be compatible. "
             f"(File: {file_path})"

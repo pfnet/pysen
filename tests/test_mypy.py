@@ -7,6 +7,7 @@ import pytest
 
 from pysen import mypy
 from pysen.mypy import _get_differences_from_base
+from pysen.process_utils import add_python_executable
 from pysen.reporter import Reporter
 from pysen.runner_options import PathContext, RunOptions
 from pysen.setting import SettingFile
@@ -88,7 +89,7 @@ def test_commands(reporter: Reporter) -> None:
     m = mypy.Mypy(
         mypy_targets=[mypy.MypyTarget([pathlib.Path("/bar"), pathlib.Path("baz")])]
     )
-    expected_cmds = [
+    expected_cmds = add_python_executable(
         "mypy",
         "--show-absolute-path",
         "--no-color-output",
@@ -98,7 +99,7 @@ def test_commands(reporter: Reporter) -> None:
         "/setting/setup.cfg",
         "/bar",
         "/foo/baz",
-    ]
+    )
     cmd = m.create_command(
         "lint",
         PathContext(pathlib.Path("/foo"), pathlib.Path("/setting")),

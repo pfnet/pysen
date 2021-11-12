@@ -2,38 +2,21 @@
 
 ![](https://github.com/pfnet/pysen/blob/main/assets/imgs/pysen.gif?raw=true)
 
-## What is pysen?
-
-pysen aims to provide a unified platform to configure and run day-to-day development tools.
-We envision the following scenarios in the future:
-
-- You open any project and `pysen run lint`, `pysen run format` will check and format the entire codebase
-- Standardized coding styles are setup with a few lines in a single `pyproject.toml` file
-
-pysen centralizes the code and knowledge related to development tools that teams have accumulated, most notably for python linters.
-You can make tasks that can be executed from both `setup.py` and our command-line tool.
-We currently provide tasks that manage setting files for the following tools:
-
-- linters
-  - flake8
-  - isort
-  - mypy
-  - black
-- utilities
-  - (planned) protoc
-
-## What isn't pysen?
-
-* pysen is not a linting tool per se. Rather, `pysen run lint` orchestrates multiple python linting tools by automatically setting up their configurations from a more abstract setting for pysen.
-* pysen does not manage your depedencies and packages. We recommend using package managers such as [pipenv](https://github.com/pypa/pipenv) or [poetry](https://python-poetry.org/) to lock your dependecy versions, **including the versions for the linting tools that pysen coordinates** (i.e., isort, mypy, flake8, black). The supported versions for these tools can be found in the `extra_requires/lint` section in pysen's [setup.py](https://github.com/pfnet/pysen/blob/main/setup.py). You should **not** rely on `pip install pysen[lint]` to control the versions of your linting tools.
-* pysen is not limited to linting purposes or python. See the [plugin section](README.md#create-a-plugin-to-customize-pysen) for details.
-
 ## Install
 
 ### PyPI
 
+#### If you have no preference of linter versions (recommended for newbies)
+
 ```sh
 pip install "pysen[lint]"
+```
+
+#### Install pysen with your choice of linter versions
+
+```sh
+pip install pysen
+pip install black==21.10b0 flake8==4.0.1 isort==5.10.1 mypy==0.910
 ```
 
 
@@ -41,18 +24,18 @@ pip install "pysen[lint]"
 
 ```sh
 # pipenv
-pipenv install --dev "pysen[lint]==0.9.1"
+pipenv install --dev "pysen[lint]==0.10.1"
 # poetry
-poetry add -D pysen==0.9.1 -E lint
+poetry add -D pysen==0.10.1 -E lint
 ```
 
 
 ## Quickstart: Set up linters using pysen
 
-Put the following pysen configuration to `pyproject.toml` of your python package:
+Put the following pysen configuration to either `pysen.toml` or `pyproject.toml` of your python package:
 ```toml
 [tool.pysen]
-version = "0.9"
+version = "0.10"
 
 [tool.pysen.lint]
 enable_black = true
@@ -75,7 +58,7 @@ $ pysen run format  # corrects errors with compatible commands (black, isort)
 That's it!
 pysen, or more accurately pysen tasks that support the specified linters, generate setting files for black, isort, mypy, and flake8
 and run them with the appropriate configuration.
-For more details about the configuration items that you can write in `pyproject.toml`, please refer to `pysen/pyproject_model.py`.
+For more details about the configuration items that you can write in a config file, please refer to `pysen/pyproject_model.py`.
 
 You can also add custom setup commands to your Python package by adding the following lines to its `setup.py`:
 ```py
@@ -92,6 +75,56 @@ For more details, please refer to the following two examples:
 - Example configuration from Python: `examples/advanced_example/config.py`
 - Example plugin for pysen: `examples/plugin_example/plugin.py`
 
+## Frequently Asked Questions
+
+Q. How do I use `mypy >= 0.800`?  
+A. See [Install pysen with your choice of linter versions](#install-pysen-with-your-choice-of-linter-versions)
+
+Q. mypy reports the error `Source file found twice under different module names`.  
+A. Add `tool.pysen.lint.mypy_targets` section(s) so file names are unique in each section.
+
+Q. How do I change specific settings for linter X?  
+A. We prioritize convention over configuration. However you can always create your own plugin. See: [Create a plugin to customize pysen](#create-a-plugin-to-customize-pysen)
+
+Q. pysen seems to ignore some files.  
+A. pysen only checks files that are tracked in git. Try `git add`ing the file under question.
+You can also disable this behavior by setting the environment variable `PYSEN_IGNORE_GIT=1`.
+
+Q. How do I run only [flake8|black|isort|mypy]?  
+A. Try the `--enable` and `--disable` options, for example, `pysen --enable flake --enable black run lint`.
+
+Q. Files without filename extensions are not checked.  
+A. Explicitly add those files under the include section in `tool.pysen.lint.source`.
+
+Q. How do I add additional settings to my `pyproject.toml`, e.g., [pydantic-mypy](https://pydantic-docs.helpmanual.io/mypy_plugin/#configuring-the-plugin)?  
+A. Add `settings_dir="."` under the `[tool.pysen-cli]` section.
+
+## What is pysen?
+
+pysen aims to provide a unified platform to configure and run day-to-day development tools.
+We envision the following scenarios in the future:
+
+- You open any project and `pysen run lint`, `pysen run format` will check and format the entire codebase
+- Standardized coding styles are setup with a few lines in a single config file
+
+pysen centralizes the code and knowledge related to development tools that teams have accumulated, most notably for python linters.
+You can make tasks that can be executed from both `setup.py` and our command-line tool.
+We currently provide tasks that manage setting files for the following tools:
+
+- linters
+  - flake8
+  - isort
+  - mypy
+  - black
+- utilities
+  - (planned) protoc
+
+## What isn't pysen?
+
+* pysen is not a linting tool per se. Rather, `pysen run lint` orchestrates multiple python linting tools by automatically setting up their configurations from a more abstract setting for pysen.
+* pysen does not manage your depedencies and packages. We recommend using package managers such as [pipenv](https://github.com/pypa/pipenv) or [poetry](https://python-poetry.org/) to lock your dependecy versions, **including the versions for the linting tools that pysen coordinates** (i.e., isort, mypy, flake8, black). The supported versions for these tools can be found in the `extra_requires/lint` section in pysen's [setup.py](https://github.com/pfnet/pysen/blob/main/setup.py). You should **not** rely on `pip install pysen[lint]` to control the versions of your linting tools.
+* pysen is not limited to linting purposes or python. See the [plugin section](README.md#create-a-plugin-to-customize-pysen) for details.
+
 ## How it works: Settings file directory
 
 Under the hood, whenever you run pysen, it generates the setting files as ephemeral temporary files to be used by linters.
@@ -103,7 +136,7 @@ $ pysen generate [out_dir]
 ```
 
 You can specify the settings directory that pysen uses when you `pysen run`.
-To do so add the following section to your `pyproject.toml`:
+To do so add the following section to your config:
 
 ```toml
 [tool.pysen-cli]
@@ -137,6 +170,9 @@ The result will look like the following:
 
 ![pysen-vim](https://github.com/pfnet/pysen/blob/main/assets/imgs/pysen_vim.gif?raw=true)
 
+A third party plugin is also available.
+- [pysen.vim](https://github.com/bonprosoft/pysen.vim)
+
 ### Emacs
 
 Refer to the [Compilation mode](https://www.gnu.org/software/emacs/manual/html_node/emacs/Compilation-Mode.html).
@@ -158,21 +194,21 @@ Note that this may report duplicate errors if you have configured linters like `
 
 We provide two methods to write configuration for pysen.
 
-One is the `[tool.pysen.lint]` section in `pyproject.toml`.
+One is the `[tool.pysen.lint]` section in the config.
 It is the most simple way to configure pysen, but the settings we provide are limited.
 
 The other method is to write a python script that configures pysen directly.
 If you want to customize configuration files that pysen generates, command-line arguments that pysen takes, or whatever actions pysen performs, we recommend you use this method.
 For more examples, please refer to `pysen/examples`.
 
-### pyproject.toml configuration model
+### Configuration model
 
 Please refer to `pysen/pyproject_model.py` for the latest model.
 
 Here is an example of a basic configuration:
 ```toml
 [tool.pysen]
-version = "0.9"
+version = "0.10"
 
 [tool.pysen.lint]
 enable_black = true
@@ -201,6 +237,10 @@ mypy_path = ["stubs"]
 [tool.pysen.lint.mypy_modules."numpy"]
   ignore_errors = true
 ```
+
+pysen looks for a configuration file in the following order:
+1. `pysen.toml` with a `tool.pysen` section
+2. `pyproject.toml` with a `tool.pysen` section
 
 ### Create a plugin to customize pysen
 

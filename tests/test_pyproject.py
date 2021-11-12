@@ -1,6 +1,7 @@
 import dataclasses
 import pathlib
-from typing import Callable, Optional
+import tempfile
+from typing import Callable, Iterator, Optional
 
 import dacite
 import pytest
@@ -26,6 +27,12 @@ EXAMPLE_PYPROJECT_PATH = EXAMPLE_DIR / "pyproject.toml"
 assert PYPROJECT_PATH.exists()
 assert EXAMPLE_DIR.exists()
 assert EXAMPLE_PYPROJECT_PATH.exists()
+
+
+@pytest.fixture
+def temp_dir() -> Iterator[pathlib.Path]:
+    with tempfile.TemporaryDirectory() as td:
+        yield pathlib.Path(td)
 
 
 def test_find_pyproject() -> None:
@@ -220,3 +227,76 @@ def test_resolve_inheritance() -> None:
     assert f"Circular dependency detected. {base3} was visited more than once." in str(
         e
     )
+
+
+def test__check_section_exists(temp_dir: pathlib.Path) -> None:
+    test_file = temp_dir / "foo.toml"
+    test_file.write_text("x = 0")
+    assert not pyproject._check_section_exists(test_file)
+
+    test_file.write_text(
+        """[tool]
+x = 0"""
+    )
+    assert not pyproject._check_section_exists(test_file)
+
+    test_file.write_text(
+        """[tool.pysen]
+x = 0"""
+    )
+    assert pyproject._check_section_exists(test_file)
+
+    test_file.write_text(
+        """[tool.pysen2]
+x = 0"""
+    )
+    assert not pyproject._check_section_exists(test_file)
+
+    test_file.write_text(
+        """[tool.pysen]
+x = 0
+[tool.foo]
+y = 1"""
+    )
+    assert pyproject._check_section_exists(test_file)
+
+
+def test_find_config(temp_dir: pathlib.Path) -> None:
+    pysen_config = """[tool.pysen]
+x = 0"""
+    other_config = """[tool.foo]
+x = 0"""
+
+    pyproject_file = temp_dir / "pyproject.toml"
+    pysen_file = temp_dir / "pysen.toml"
+    other_file = temp_dir / "foo.toml"
+
+    other_file.write_text(pysen_config)
+    assert pyproject.find_config(temp_dir) is None
+
+    pyproject_file.write_text(other_config)
+    assert pyproject.find_config(temp_dir) is None
+
+    pyproject_file.write_text(pysen_config)
+    assert pyproject.find_config(temp_dir) == pyproject_file
+
+    # checks that the config resolution order is pysen_file -> pyproject_file
+    pysen_file.write_text(pysen_config)
+    assert pyproject.find_config(temp_dir) == pysen_file
+
+    pysen_file.write_text(other_config)
+    assert pyproject.find_config(temp_dir) == pyproject_file
+
+
+def test_find_config_recursive(temp_dir: pathlib.Path) -> None:
+    assert pyproject.find_config_recursive(BASE_DIR) == PYPROJECT_PATH
+    assert pyproject.find_config_recursive(BASE_DIR / "fakes/configs") == PYPROJECT_PATH
+    assert pyproject.find_config_recursive(EXAMPLE_DIR) == EXAMPLE_PYPROJECT_PATH
+    assert pyproject.find_config_recursive(temp_dir) is None
+
+    temp_pyproject = temp_dir / "pyproject.toml"
+    temp_pyproject.write_text(
+        """[tool.pysen]
+x = 1"""
+    )
+    assert pyproject.find_config_recursive(temp_dir) == temp_pyproject

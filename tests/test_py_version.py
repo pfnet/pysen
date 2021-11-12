@@ -30,6 +30,26 @@ def test_version_ops() -> None:
         assert VersionRepresentation(3, 6) == "3"
 
 
+def test_version_comp() -> None:
+    def assert_rhs_is_larger(
+        lhs: VersionRepresentation, rhs: VersionRepresentation
+    ) -> None:
+        assert lhs < rhs
+        assert not rhs < lhs
+
+    assert_rhs_is_larger(VersionRepresentation(0, 4, 5), VersionRepresentation(1, 2, 3))
+    assert_rhs_is_larger(VersionRepresentation(1, 0), VersionRepresentation(2, 0))
+    assert_rhs_is_larger(VersionRepresentation(0, 5), VersionRepresentation(0, 6))
+    assert_rhs_is_larger(VersionRepresentation(0, 5), VersionRepresentation(0, 5, 1))
+
+    assert not VersionRepresentation(0, 5, 1, "b0") < VersionRepresentation(
+        0, 5, 1, "b1"
+    )
+    assert not VersionRepresentation(0, 5, 1, "b1") < VersionRepresentation(
+        0, 5, 1, "b0"
+    )
+
+
 def test_is_compatible() -> None:
     assert VersionRepresentation(0, 5).is_compatible(VersionRepresentation(0, 5))
     assert VersionRepresentation(0, 5).is_compatible(VersionRepresentation(0, 5, 7))

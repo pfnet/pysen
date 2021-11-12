@@ -2,6 +2,7 @@ import io
 import logging
 import os
 import pathlib
+import sys
 import tempfile
 from typing import List
 
@@ -36,6 +37,8 @@ echo "End"
 echo "EndError" > /dev/stderr
 
 """
+
+TEST_UNICODE = b"pysen\xe3\x81\xb1\xe3\x81\x84\xe3\x81\x9b\xe3\x82\x9312345"
 
 
 class FakeHandler(logging.Handler):
@@ -80,16 +83,40 @@ def test__read_stream(sample_str: str) -> None:
         reporter.process_output.handlers.clear()
         reporter.process_output.addHandler(handler)
 
-        ret = _read_stream(io.BytesIO(temp_path.read_bytes()), reporter, logging.INFO)
+        ret = _read_stream(io.StringIO(temp_path.read_text()), reporter, logging.INFO)
         expected = sample_str
         assert ret == expected
         assert handler.messages == expected.splitlines()
 
         handler.messages.clear()
-        ret = _read_stream(io.BytesIO(temp_path.read_bytes()), reporter, logging.DEBUG)
+        ret = _read_stream(io.StringIO(temp_path.read_text()), reporter, logging.DEBUG)
 
         assert ret == expected
         assert handler.messages == []
+
+
+def test_run_encoding() -> None:
+    with tempfile.TemporaryDirectory() as td:
+        temp_dir = pathlib.Path(td)
+        temp_path = temp_dir / "file"
+        temp_path.write_bytes(TEST_UNICODE)
+        reporter = Reporter("foo")
+
+        expected_stdout = temp_path.read_text(sys.stdout.encoding, errors="ignore")
+        expected_utf8 = temp_path.read_text("utf-8", errors="ignore")
+        expected_ascii = temp_path.read_text("ascii", errors="ignore")
+
+        ret, stdout, stderr = run(["cat", str(temp_path)], reporter)
+        assert ret == 0
+        assert stdout == expected_stdout
+
+        ret, stdout, _ = run(["cat", str(temp_path)], reporter, encoding="utf-8")
+        assert ret == 0
+        assert stdout == expected_utf8
+
+        ret, stdout, _ = run(["cat", str(temp_path)], reporter, encoding="ascii")
+        assert ret == 0
+        assert stdout == expected_ascii == "pysen12345"
 
 
 def test_run() -> None:

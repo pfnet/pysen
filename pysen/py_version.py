@@ -72,6 +72,17 @@ class VersionRepresentation:
     def is_compatible(self, other: "VersionRepresentation") -> bool:
         return self.major == other.major and self.minor == other.minor
 
+    def __lt__(self, other: "VersionRepresentation") -> bool:
+        """Compare with a given VersionRepresentation
+
+        .. warning::
+            This method does NOT consider pre_release versions.
+        """
+        # check whether self < other
+        lhs = (self.major, self.minor, self.patch or -1)
+        rhs = (other.major, other.minor, other.patch or -1)
+        return lhs < rhs
+
 
 @dataclasses.dataclass(frozen=True)
 class PythonVersion(VersionRepresentation):

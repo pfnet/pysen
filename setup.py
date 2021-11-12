@@ -44,7 +44,7 @@ setup(
         "lint": [
             "black>=19.10b0,<=20.8",
             "flake8-bugbear",  # flake8 doesn't have a dependency for bugbear plugin
-            "flake8>=3.7,<4",
+            "flake8>=3.7,<5",
             "isort>=4.3,<5.2.0",
             "mypy>=0.770,<0.800",
         ],

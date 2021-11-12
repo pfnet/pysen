@@ -223,7 +223,7 @@ def _setup_manifest_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--config",
         type=str,
-        help="Path for pyproject.toml",
+        help="Path to a config file",
         default=None,
     )
     parser.add_argument(

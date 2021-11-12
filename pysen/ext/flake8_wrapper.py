@@ -10,6 +10,7 @@ from pysen.dist_version import get_version
 from pysen.error_lines import parse_error_lines
 from pysen.exceptions import IncompatibleVersionError
 from pysen.path import change_dir
+from pysen.py_version import VersionRepresentation
 from pysen.reporter import Reporter
 from pysen.setting import SettingBase, to_dash_case
 
@@ -91,9 +92,10 @@ class Flake8Setting(SettingBase):
 @functools.lru_cache(1)
 def _check_flake8_version() -> None:
     version = get_version("flake8")
-    if version.major != 3 or version.minor < 7:
+    minimum_supported = VersionRepresentation(3, 7)
+    if version < minimum_supported:
         raise IncompatibleVersionError(
-            "pysen only supports flake8 version >=3.7, <4. "
+            f"pysen only supports flake8 >= {minimum_supported}, "
             f"version {version} is not supported."
         )
 
@@ -104,7 +106,7 @@ def run(
     setting_path: pathlib.Path,
     sources: Iterable[pathlib.Path],
 ) -> int:
-    check_command_installed("flake8", "--version")
+    check_command_installed(*process_utils.add_python_executable("flake8", "--version"))
     _check_flake8_version()
     targets = [str(d) for d in sources]
     if len(targets) == 0:
@@ -112,7 +114,9 @@ def run(
 
     cmd = ["flake8", "--config", str(setting_path)] + targets
     with change_dir(base_dir):
-        ret, stdout, _ = process_utils.run(cmd, reporter)
+        ret, stdout, _ = process_utils.run(
+            process_utils.add_python_executable(*cmd), reporter
+        )
 
     diagnostics = parse_error_lines(stdout, logger=reporter.logger)
     reporter.report_diagnostics(list(diagnostics))

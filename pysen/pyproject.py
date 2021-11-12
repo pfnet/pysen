@@ -15,6 +15,8 @@ from .pyproject_model import Config, LintConfig, has_tool_section, parse
 
 _logger = logging.getLogger(__name__)
 TConfig = TypeVar("TConfig")
+# NOTE: The following names are in config resolution order
+CONFIG_FILE_NAMES = ["pysen.toml", "pyproject.toml"]
 
 
 def resolve_inheritance(
@@ -105,20 +107,33 @@ def load_manifest(path: pathlib.Path) -> ManifestBase:
     return build(components, path, external_builder)
 
 
-def _find_recursive() -> Optional[pathlib.Path]:
-    current = pathlib.Path.cwd().resolve()
+def _check_section_exists(config_path: pathlib.Path) -> bool:
+    pyproject = tomlkit.loads(config_path.read_text())
+    return has_tool_section("jiro", pyproject) or has_tool_section("pysen", pyproject)
 
-    while True:
-        path = current / "pyproject.toml"
+
+def find_config(target_dir: pathlib.Path) -> Optional[pathlib.Path]:
+    # NOTE: This method doesn't ensure if a config is valid for the configuration model
+    for name in CONFIG_FILE_NAMES:
+        path = target_dir / name
         if path.exists() and path.is_file():
-            pyproject = tomlkit.loads(path.read_text())
-            if has_tool_section("jiro", pyproject) or has_tool_section(
-                "pysen", pyproject
-            ):
-                _logger.debug(f"successfully found pyproject.toml: {path}")
+            if _check_section_exists(path):
+                _logger.debug(f"successfully found config file: {path}")
                 return path
 
-            _logger.debug(f"found a file, but pysen.tool doesn't exist: {path}")
+            _logger.debug(
+                f"found a file, but [tool.pysen] section doesn't exist: {path}"
+            )
+
+    return None
+
+
+def find_config_recursive(base_dir: pathlib.Path) -> Optional[pathlib.Path]:
+    current = base_dir.resolve()
+    while True:
+        config = find_config(current)
+        if config is not None:
+            return config
 
         # reached root
         if current.parent == current:
@@ -137,11 +152,12 @@ def find_pyproject(path: Optional[pathlib.Path] = None) -> pathlib.Path:
 
         return path
     else:
-        p = _find_recursive()
+        cwd = pathlib.Path.cwd()
+        p = find_config_recursive(cwd)
         if p is None:
             raise FileNotFoundError(
-                "Could not find a pyproject.toml file "
-                "containing a [tool.pysen] section "
+                "Could not find either a pyproject.toml file or "
+                "a pysen.toml file containing a [tool.pysen] section "
                 "in this or any of its parent directories. \n"
                 "The `--loglevel debug option` may help."
             )

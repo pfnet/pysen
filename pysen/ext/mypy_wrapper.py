@@ -80,7 +80,7 @@ class MypySetting(SettingBase):
     _pysen_convert_abspath: bool = False
 
     @staticmethod
-    def very_strict(**kwargs: Any) -> "MypySetting":
+    def _top(**kwargs: Any) -> "MypySetting":
         updates = {
             "check_untyped_defs": True,
             "disallow_any_decorated": True,
@@ -107,12 +107,22 @@ class MypySetting(SettingBase):
         return MypySetting(**updates)  # type: ignore
 
     @staticmethod
-    def strict(**kwargs: Any) -> "MypySetting":
+    def very_strict(**kwargs: Any) -> "MypySetting":
         updates = {
             "disallow_any_decorated": False,
             "disallow_any_unimported": False,
             "disallow_untyped_decorators": False,
             "ignore_missing_imports": True,
+        }
+        updates.update(kwargs)
+        setting = MypySetting._top(**updates)
+        return setting
+
+    @staticmethod
+    def strict(**kwargs: Any) -> "MypySetting":
+        updates = {
+            "warn_unused_ignores": False,
+            "disallow_any_generics": False,
         }
         updates.update(kwargs)
         setting = MypySetting.very_strict(**updates)
@@ -174,6 +184,7 @@ class MypySetting(SettingBase):
 @dataclasses.dataclass
 class MypyTarget:
     paths: List[pathlib.Path]
+    namespace_packages: bool = False
 
 
 @functools.lru_cache(1)
@@ -193,7 +204,7 @@ def run(
     target: MypyTarget,
     require_diagnostics: bool,
 ) -> int:
-    check_command_installed("mypy", "--version")
+    check_command_installed(*process_utils.add_python_executable("mypy", "--version"))
     _check_mypy_version()
 
     target_paths = [str(resolve_path(base_dir, x)) for x in target.paths]
@@ -212,9 +223,14 @@ def run(
             "--pretty",
         ]
 
+    if target.namespace_packages:
+        extra_options.append("--namespace-packages")
+
     cmd = ["mypy"] + extra_options + ["--config-file", str(setting_path)] + target_paths
     with change_dir(base_dir):
-        ret, stdout, _ = process_utils.run(cmd, reporter)
+        ret, stdout, _ = process_utils.run(
+            process_utils.add_python_executable(*cmd), reporter
+        )
 
     if require_diagnostics:
         diagnostics = parse_error_lines(stdout, logger=reporter.logger)

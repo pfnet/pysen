@@ -121,7 +121,7 @@ def run(
     sources: Iterable[pathlib.Path],
     inplace_edit: bool,
 ) -> int:
-    check_command_installed("isort", "--version")
+    check_command_installed(*process_utils.add_python_executable("isort", "--version"))
     version = _get_isort_version()
 
     targets = [str(d) for d in sources]
@@ -136,7 +136,9 @@ def run(
     cmd += targets
 
     with change_dir(base_dir):
-        ret, stdout, _ = process_utils.run(cmd, reporter)
+        ret, stdout, _ = process_utils.run(
+            process_utils.add_python_executable(*cmd), reporter
+        )
 
     diagnostics = parse_error_diffs(stdout, _parse_file_path, logger=reporter.logger)
     reporter.report_diagnostics(list(diagnostics))

@@ -28,7 +28,9 @@ class CommandBase(ABC):
         raise RunTargetFileNotSupported(self.name)
 
 
-def check_command_installed(*validation_command: str) -> None:
+def check_command_installed(
+    *validation_command: str,
+) -> None:
     err = CommandNotFoundError(
         f"The command `{' '.join(validation_command)}` failed."
         " Make sure it is installed."

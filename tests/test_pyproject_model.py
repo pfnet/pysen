@@ -161,6 +161,10 @@ def test__parse_mypy_target() -> None:
     target = _parse_mypy_target(base_dir, {"paths": ["a", "b", "/d"]})
     assert target.paths == [base_dir / "a", base_dir / "b", pathlib.Path("/d")]
 
+    target = _parse_mypy_target(base_dir, {"paths": ["a"], "namespace_packages": True})
+    assert target.paths == [base_dir / "a"]
+    assert target.namespace_packages
+
 
 def test__parse_mypy_targets() -> None:
     base_dir = pathlib.Path("/foo")

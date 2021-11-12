@@ -54,15 +54,11 @@ def _parse_file_path(file_path: str) -> pathlib.Path:
 @functools.lru_cache(1)
 def _check_black_version() -> None:
     version = get_version("black")
-    compatible_versions = [
-        VersionRepresentation(19, 10),
-        VersionRepresentation(20, 8),
-    ]
+    minimum_supported = VersionRepresentation(19, 10)
 
-    if all(not v.is_compatible(version) for v in compatible_versions):
+    if version < minimum_supported:
         raise IncompatibleVersionError(
-            "pysen only supports black versions: "
-            f"{{{', '.join(v.version for v in compatible_versions)}}}. "
+            f"pysen only supports black >= {minimum_supported}, "
             f"version {version} is not supported."
         )
 
@@ -74,7 +70,7 @@ def run(
     sources: Iterable[pathlib.Path],
     inplace_edit: bool,
 ) -> int:
-    check_command_installed("black", "--version")
+    check_command_installed(*process_utils.add_python_executable("black", "--version"))
     _check_black_version()
 
     targets = [str(d) for d in sources]
@@ -87,7 +83,9 @@ def run(
         + targets
     )
     with change_dir(base_dir):
-        ret, stdout, _ = process_utils.run(cmd, reporter)
+        ret, stdout, _ = process_utils.run(
+            process_utils.add_python_executable(*cmd), reporter
+        )
 
     diagnostics = parse_error_diffs(stdout, _parse_file_path, logger=reporter.logger)
     reporter.report_diagnostics(list(diagnostics))
