@@ -33,7 +33,7 @@ class ShellCommand(CommandBase):
                 return ret.returncode
             except BaseException as e:
                 reporter.logger.info(
-                    f"an error occured while executing: {self._cmd}\n{e}"
+                    f"an error occurred while executing: {self._cmd}\n{e}"
                 )
                 return 255
 

@@ -20,7 +20,7 @@ def _load(module: ModuleType, func_name: str) -> PluginBase:
         ret = entry_point()
     except Exception as e:
         raise RuntimeError(
-            f"an error occured while loading {module.__file__}::{func_name}",
+            f"an error occurred while loading {module.__file__}::{func_name}",
         ) from e
 
     if not isinstance(ret, PluginBase):
