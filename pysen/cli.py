@@ -290,7 +290,7 @@ def _parse_manifest_options() -> Tuple[ManifestBase, Optional[CliConfig], pathli
         manifest = load_manifest(pyproject_path)
         config = cli_config.parse(pyproject_path)
     except exceptions.PysenError as e:
-        sys.stderr.write(f"error occured while loading {pyproject_path}: {e}\n")
+        sys.stderr.write(f"error occurred while loading {pyproject_path}: {e}\n")
         sys.exit(1)
 
     base_dir = pyproject_path.parent
