@@ -1,0 +1,20 @@
+name-template: 'pysen $NEXT_PATCH_VERSION'
+tag-template: '$NEXT_PATCH_VERSION'
+categories:
+- title: '💣 Breaking Changes (CLI)'
+  label: 'no-compat-cli'
+- title: '💣 Breaking Changes (TOML Configuration)'
+  label: 'no-compat-toml'
+- title: '💣 Breaking Changes (Python API)'
+  label: 'no-compat-py'
+- title: '🚀 Features'
+  label: 'feature'
+- title: '🐛 Bug Fixes'
+  label: 'bug'
+- title: '📜 Documentation'
+  label: 'documentation'
+- title: '🧰 Maintenance'
+  label: 'chore'
+prerelease: true
+template: |
+  $CHANGES
