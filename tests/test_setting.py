@@ -24,9 +24,6 @@ def test__traverse_toml() -> None:
     tool = document["tool"]
     # OutOfOrderTableProxy is problematic as it is a reference and cannot be traversed.
     assert isinstance(tool, tomlkit.container.OutOfOrderTableProxy)
-    tool["hoge"] = {}
-    with pytest.raises(tomlkit.exceptions.NonExistentKey):
-        tool["hoge"]
     with pytest.raises(ValueError):
         _traverse_toml(("tool", "hoge", "answer"), document, False)
     _traverse_toml(("tool", "hoge", "answer"), document, True)

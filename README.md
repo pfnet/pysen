@@ -19,7 +19,6 @@ pip install pysen
 pip install black==21.10b0 flake8==4.0.1 isort==5.10.1 mypy==0.910
 ```
 
-
 ### Other installation examples
 
 ```sh
@@ -28,7 +27,6 @@ pipenv install --dev "pysen[lint]==0.10.1"
 # poetry
 poetry add -D pysen==0.10.1 -E lint
 ```
-
 
 ## Quickstart: Set up linters using pysen
 
@@ -266,14 +264,27 @@ $ pipenv lock --pre
 $ pipenv run tox
 ```
 
+## mypy presets
+
+The mypy preset `strict` aims to make life easier for developers using the following packages:
+
+* OpenCV
+* PyTorch
+* scikit-learn
+
+We recommend developers mitigate some rules from the `very strict` preset to avoid some hassles.
+If you use these packages with the `strict` preset and still have inconveniences, please let us know.
+
 ## Contributing
 
+Our main priority is to fulfil the demands from projects within Preferred Networks.
+Therefore, we must assess whether each feature/pull request is in the best interest of our projects.
+In principle, we are open to minor things like the following:
 
-This repository serves only as a mirror of our main repository on our private repository.
-Therefore we do not plan to accept any pull requests.
-We encourage aspiring developers to make patches on their forked repositories.
+* Issues that report bugs
+* Small PRs that fix typos or minor glitches
 
-Also, our resource limitations force us to prioritize development
-to fulfill our corporate-specific demands.
-As such we will keep Issues closed for the foreseeable future.
-With a heavy heart we direct all questions, troubleshooting, feature requests and bug reports to `/dev/null`.
+As for new features or major feature enhancements,
+the core developers will determine whether the proposed idea is in line with the
+goals and concepts of `pysen` for each case.
+When in doubt, don't hesitate to open an Issue first.
