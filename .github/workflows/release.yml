@@ -55,7 +55,7 @@ jobs:
     environment:
       name: pypi.org
       url: https://pypi.org/project/pysen/
-    needs: build
+    needs: [build, deploy-testpypi]
     steps:
     - name: Download artifacts
       uses: actions/download-artifact@v2
