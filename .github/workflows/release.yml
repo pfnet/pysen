@@ -1,0 +1,69 @@
+name: Release
+on:
+  push:
+    tags:
+      - '*'
+jobs:
+  build:
+    name: Build packages
+    runs-on: ubuntu-20.04
+    timeout-minutes: 15
+    container:
+      image: python:3.8.8-alpine3.13
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install dependencies
+      run: |
+        pip install -U pip
+        pip install wheel
+    - name: Build packages
+      run: |
+        python3 setup.py sdist bdist_wheel
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: packages
+        path: dist/
+  deploy-testpypi:
+    name: Deploy packages to test.pypi.org
+    runs-on: ubuntu-20.04
+    timeout-minutes: 15
+    container:
+      image: python:3.8.8-alpine3.13
+    environment:
+      name: test.pypi.org
+      url: https://test.pypi.org/project/pysen/
+    needs: build
+    steps:
+    - name: Download artifacts
+      uses: actions/download-artifact@v2
+      with:
+        name: packages
+        path: dist/
+    - name: Publish a Python distribution to test.pypi.org
+      uses: pypa/gh-action-pypi-publish@release/v1
+      with:
+        user: __token__
+        password: ${{ secrets.TEST_PYPI_API_TOKEN }}
+        repository_url: https://test.pypi.org/legacy/
+  deploy-pypi:
+    name: Deploy packages to pypi.org
+    runs-on: ubuntu-20.04
+    timeout-minutes: 15
+    container:
+      image: python:3.8.8-alpine3.13
+    environment:
+      name: pypi.org
+      url: https://pypi.org/project/pysen/
+    needs: [build, deploy-testpypi]
+    steps:
+    - name: Download artifacts
+      uses: actions/download-artifact@v2
+      with:
+        name: packages
+        path: dist/
+    - name: Publish a Python distribution to pypi.org
+      uses: pypa/gh-action-pypi-publish@release/v1
+      with:
+        user: __token__
+        password: ${{ secrets.PYPI_API_TOKEN }}
