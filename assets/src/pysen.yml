@@ -1,0 +1,269 @@
+# The configurations that used for the recording, feel free to edit them
+config:
+
+  # Specify a command to be executed
+  # like `/bin/bash -l`, `ls`, or any other commands
+  # the default is bash for Linux
+  # or powershell.exe for Windows
+  command: /bin/bash
+  
+  # Specify the current working directory path
+  # the default is the current working directory path
+  cwd: /home/demo/pysen
+  
+  # Export additional ENV variables
+  env:
+    recording: true
+  
+  # Explicitly set the number of columns
+  # or use `auto` to take the current
+  # number of columns of your shell
+  cols: 75
+  
+  # Explicitly set the number of rows
+  # or use `auto` to take the current
+  # number of rows of your shell
+  rows: 35
+  
+  # Amount of times to repeat GIF
+  # If value is -1, play once
+  # If value is 0, loop indefinitely
+  # If value is a positive number, loop n times
+  repeat: 0
+  
+  # Quality
+  # 1 - 100
+  quality: 100
+  
+  # Delay between frames in ms
+  # If the value is `auto` use the actual recording delays
+  frameDelay: auto
+  
+  # Maximum delay between frames in ms
+  # Ignored if the `frameDelay` isn't set to `auto`
+  # Set to `auto` to prevent limiting the max idle time
+  maxIdleTime: 2000
+  
+  # The surrounding frame box
+  # The `type` can be null, window, floating, or solid`
+  # To hide the title use the value null
+  # Don't forget to add a backgroundColor style with a null as type
+  frameBox:
+    type: solid
+    title: null
+    style:
+      border: 0px black solid
+      # boxShadow: none
+      # margin: 0px
+  
+  # Add a watermark image to the rendered gif
+  # You need to specify an absolute path for
+  # the image on your machine or a URL, and you can also
+  # add your own CSS styles
+  watermark:
+    imagePath: null
+    style:
+      position: absolute
+      right: 15px
+      bottom: 15px
+      width: 100px
+      opacity: 0.9
+  
+  # Cursor style can be one of
+  # `block`, `underline`, or `bar`
+  cursorStyle: block
+  
+  # Font family
+  # You can use any font that is installed on your machine
+  # in CSS-like syntax
+  fontFamily: "Monaco, Lucida Console, Ubuntu Mono, Monospace"
+  
+  # The size of the font
+  fontSize: 26
+  
+  # The height of lines
+  lineHeight: 1
+  
+  # The spacing between letters
+  letterSpacing: 0
+  
+  # Theme
+  theme:
+    background: "transparent"
+    foreground: "#afafaf"
+    cursor: "#c7c7c7"
+    black: "#232628"
+    red: "#fc4384"
+    green: "#b3e33b"
+    yellow: "#ffa727"
+    blue: "#75dff2"
+    magenta: "#ae89fe"
+    cyan: "#708387"
+    white: "#d5d5d0"
+    brightBlack: "#626566"
+    brightRed: "#ff7fac"
+    brightGreen: "#c8ed71"
+    brightYellow: "#ebdf86"
+    brightBlue: "#75dff2"
+    brightMagenta: "#ae89fe"
+    brightCyan: "#b1c6ca"
+    brightWhite: "#f9f9f4"
+  
+# Records, feel free to edit them
+records:
+  - delay: 417
+    content: "\e]0;demo@pysen: ~/pysen\a\e[01;32mdemo@pysen\e[00m:\e[01;34m~/pysen\e[00m$ "
+  - delay: 1513
+    content: c
+  - delay: 90
+    content: a
+  - delay: 90
+    content: t
+  - delay: 90
+    content: ' '
+  - delay: 90
+    content: <
+  - delay: 90
+    content: <
+  - delay: 90
+    content: E
+  - delay: 90
+    content: O
+  - delay: 90
+    content: F
+  - delay: 90
+    content: ' '
+  - delay: 90
+    content: '>'
+  - delay: 90
+    content: ' '
+  - delay: 90
+    content: p
+  - delay: 90
+    content: 'y'
+  - delay: 90
+    content: p
+  - delay: 90
+    content: r
+  - delay: 90
+    content: o
+  - delay: 90
+    content: j
+  - delay: 90
+    content: e
+  - delay: 90
+    content: c
+  - delay: 90
+    content: t
+  - delay: 90
+    content: .
+  - delay: 90
+    content: t
+  - delay: 90
+    content: o
+  - delay: 90
+    content: m
+  - delay: 90
+    content: l
+  - delay: 90
+    content: "\r\n> "
+  - delay: 584
+    content: "[tool.pysen]\r\n> version = \"0.8\"\r\n> \r\n> [tool.pysen.lint]\r\n> enable_black = true\r\n> enable_flake8 = true\r\n> enable_isort = true\r\n> enable_mypy = true\r\n> isort_known_first_party = [\"pysen\"]\r\n> [[tool.pysen.lint.mypy_targets]]\r\n>   paths = [\".\"]\r\n> "
+  - delay: 90
+    content: "\r\n> "
+  - delay: 394
+    content: E
+  - delay: 90
+    content: O
+  - delay: 90
+    content: F
+  - delay: 414
+    content: "\r\n"
+  - delay: 66
+    content: "\e]0;demo@pysen: ~/pysen\a\e[01;32mdemo@pysen\e[00m:\e[01;34m~/pysen\e[00m$ "
+  - delay: 2375
+    content: p
+  - delay: 90
+    content: 'y'
+  - delay: 90
+    content: s
+  - delay: 90
+    content: e
+  - delay: 90
+    content: 'n'
+  - delay: 90
+    content: ' '
+  - delay: 90
+    content: r
+  - delay: 90
+    content: u
+  - delay: 90
+    content: 'n'
+  - delay: 90
+    content: ' '
+  - delay: 90
+    content: l
+  - delay: 90
+    content: i
+  - delay: 90
+    content: 'n'
+  - delay: 90
+    content: t
+  - delay: 1951
+    content: "\r\n"
+  - delay: 301
+    content: "\e[32mRunning commands concurrently...\e[0m\r\n"
+  - delay: 1468
+    content: "\e[32m... concurrent execution done\e[0m\r\n\e[32mRunning: black\e[0m\r\n\e[32mChecking 101 files\e[0m\r\n--- /home/demo/pysen/pysen/runner.py\t2021-03-01 12:26:09.853523 +0000\e[0m\r\n+++ /home/demo/pysen/pysen/runner.py\t2021-03-01 12:32:04.425857 +0000\e[0m\r\n@@ -95,15 +95,11 @@\e[0m\r\n         base_dir: pathlib.Path,\e[0m\r\n         settings_dir: pathlib.Path,\e[0m\r\n         args: argparse.Namespace,\e[0m\r\n     ) -> None:\e[0m\r\n \e[0m\r\n-\e[0m\r\n-        self._manifest.export_settings(\e[0m\r\n-            PathContext(base_dir, settings_dir),\e[0m\r\n-            args\e[0m\r\n-        )\e[0m\r\n+        self._manifest.export_settings(PathContext(base_dir, settings_dir), args)\e[0m\r\n \e[0m\r\n     def get_targets(self, args: argparse.Namespace) -> Dict[str, List[ComponentName]]:\e[0m\r\n         return self._manifest.get_targets(args)\e[0m\r\n \e[0m\r\n     def _get_target(\e[0m\r\n\e[33mwould reformat /home/demo/pysen/pysen/runner.py\e[0m\r\n\e[33mOh no! \U0001F4A5 \U0001F494 \U0001F4A5\e[0m\r\n\e[33m1 file would be reformatted, 100 files would be left unchanged.\e[0m\r\n\e[32mRunning: flake8\e[0m\r\n\e[32mChecking 101 files\e[0m\r\n/home/demo/pysen/pysen/runner.py:101:9: E303 too many blank lines (2)\e[0m\r\n\e[32mRunning: isort\e[0m\r\n\e[32mChecking 101 files\e[0m\r\nERROR: /home/demo/pysen/pysen/runner.py Imports are incorrectly sorted.\e[0m\r\n--- /home/demo/pysen/pysen/runner.py:before\t2021-03-01 21:26:09.853523\e[0m\r\n+++ /home/demo/pysen/pysen/runner.py:after\t2021-03-01 21:32:03.822699\e[0m\r\n@@ -8,11 +8,14 @@\e[0m\r\n \e[0m\r\n from . import path\e[0m\r\n from .command import CommandBase\e[0m\r\n-from .exceptions import InvalidCommandNameError, RunTargetFileNotSupported\e[0m\r\n+from .exceptions import (\e[0m\r\n+    CommandNotFoundError,\e[0m\r\n+    InvalidCommandNameError,\e[0m\r\n+    RunTargetFileNotSupported,\e[0m\r\n+)\e[0m\r\n from .manifest import ManifestBase, ParserType, TargetType\e[0m\r\n from .reporter import ReporterFactory\e[0m\r\n from .runner_options import PathContext, RunOptions\e[0m\r\n-from .exceptions import CommandNotFoundError\e[0m\r\n from .types import ComponentName, TargetName\e[0m\r\n \e[0m\r\n _logger = logging.getLogger(__name__)\e[0m\r\n\e[32mRunning: mypy\e[0m\r\n\e[32m[1/1] Checking 1 entries\e[0m\r\nSuccess: no issues found in 42 source files\e[0m\r\n\r\n ** execution summary **\r\nisort .......... Failed (0.90 sec)\r\nblack .......... Failed (1.47 sec)\r\nflake8 .......... Failed (1.13 sec)\r\nmypy .......... OK (0.31 sec)\r\n\r\nlint finished with error(s)\r\nErrored:\r\n - isort\r\n - black\r\n - flake8\r\n\r\n"
+  - delay: 53
+    content: "\e]0;demo@pysen: ~/pysen\a\e[01;32mdemo@pysen\e[00m:\e[01;34m~/pysen\e[00m$ "
+  - delay: 3170
+    content: p
+  - delay: 90
+    content: 'y'
+  - delay: 90
+    content: s
+  - delay: 90
+    content: e
+  - delay: 90
+    content: 'n'
+  - delay: 90
+    content: ' '
+  - delay: 90
+    content: r
+  - delay: 90
+    content: u
+  - delay: 90
+    content: 'n'
+  - delay: 90
+    content: ' '
+  - delay: 90
+    content: f
+  - delay: 90
+    content: o
+  - delay: 90
+    content: r
+  - delay: 90
+    content: m
+  - delay: 90
+    content: a
+  - delay: 90
+    content: t
+  - delay: 239
+    content: "\r\n"
+  - delay: 314
+    content: "\e[32mRunning commands\e[0m\r\n\e[32mRunning: isort\e[0m\r\n"
+  - delay: 11
+    content: "\e[32mChecking 101 files\e[0m\r\n"
+  - delay: 483
+    content: "Fixing /home/demo/pysen/pysen/runner.py\e[0m\r\n"
+  - delay: 12
+    content: "\e[32mRunning: black\e[0m\r\n\e[32mChecking 101 files\e[0m\r\n"
+  - delay: 387
+    content: "\e[33mreformatted /home/demo/pysen/pysen/runner.py\e[0m\r\n\e[33mAll done! ✨ \U0001F370 ✨\e[0m\r\n\e[33m1 file reformatted, 100 files left unchanged.\e[0m\r\n"
+  - delay: 16
+    content: "\r\n ** execution summary **\r\nisort .......... OK (0.51 sec)\r\nblack .......... OK (0.41 sec)\r\n\r\n"
+  - delay: 53
+    content: "\e]0;demo@pysen: ~/pysen\a\e[01;32mdemo@pysen\e[00m:\e[01;34m~/pysen\e[00m$ "
+  - delay: 3874
+    content: " "
