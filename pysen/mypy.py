@@ -99,7 +99,7 @@ class MypyCommand(CommandBase):
         if num_targets == 0:
             reporter.logger.error(
                 "No mypy targets specified. "
-                "You must specify at least one entry in `tools.pysen.lint.mypy_targets`."
+                "You must specify at least one entry in `tool.pysen.lint.mypy_targets`."
             )
             return 2
 
