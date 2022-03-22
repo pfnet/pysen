@@ -1,4 +1,4 @@
-# The configurations that used for the recording, feel free to edit them
+# The configurations for terminalizer to capture the screen. Feel free to edit them.
 config:
 
   # Specify a command to be executed
