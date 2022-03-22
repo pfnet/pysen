@@ -10,7 +10,7 @@ from pysen import dumper
 from pysen.setting import SettingFile
 
 MULTIPLE_SPACES = re.compile(r"\s+")
-TOOL_HEADING = "[tool]"
+TOOL_HEADING = "[tool]\n"
 
 
 def normalize_spaces(s: str) -> str:
@@ -95,7 +95,6 @@ piyo = "description"
     with temp_file.open("r") as f:
         actual = f.read()
 
-    actual = normalize_spaces(actual)
     # NOTE: tomlkit 0.10+ won't create a super table if the table has only one child
     if actual.startswith(TOOL_HEADING):
         actual = actual[len(TOOL_HEADING) :]
