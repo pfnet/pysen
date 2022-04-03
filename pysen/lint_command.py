@@ -2,7 +2,7 @@ import difflib
 import logging
 import pathlib
 from abc import abstractmethod
-from typing import Iterable, List, Optional, Sequence, Set
+from typing import Iterable, List, Optional, Sequence
 
 from . import git_utils
 from .command import CommandBase
