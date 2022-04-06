@@ -2,7 +2,7 @@ import difflib
 import logging
 import pathlib
 from abc import abstractmethod
-from typing import Iterable, List, Optional, Sequence, Set
+from typing import Iterable, List, Optional, Sequence
 
 from . import git_utils
 from .command import CommandBase
@@ -18,13 +18,14 @@ class LintCommandBase(CommandBase):
 
     def _get_sources(
         self, reporter: Reporter, filter_predicate: FilePredicateType
-    ) -> Set[pathlib.Path]:
-        return self.source.resolve_files(
+    ) -> List[pathlib.Path]:
+        sources = self.source.resolve_files(
             self.base_dir,
             filter_predicate,
             self.git_enabled(),
             reporter,
         )
+        return sorted(sources)
 
     def _get_covered_files(
         self,
