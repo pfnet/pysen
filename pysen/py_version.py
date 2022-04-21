@@ -111,4 +111,5 @@ _PythonVersions = {
     "PY37": PythonVersion(3, 7),
     "PY38": PythonVersion(3, 8),
     "PY39": PythonVersion(3, 9),
+    "PY310": PythonVersion(3, 10),
 }
