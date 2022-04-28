@@ -4,3 +4,7 @@ mypy
 ====
 
 .. autoclass:: MypySetting
+
+.. autoclass:: MypyPlugin
+
+.. autoclass:: MypyTarget

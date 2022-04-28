@@ -4,3 +4,5 @@ isort
 =====
 
 .. autoclass:: IsortSetting
+
+.. autoclass:: IsortSectionName
