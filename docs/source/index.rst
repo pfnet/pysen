@@ -48,7 +48,7 @@ reference
 =========
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
    reference/ext/index
    reference/factory
