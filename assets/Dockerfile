@@ -1,10 +1,10 @@
 # Dockerfile for pysen-test
-FROM alpine:3.13.2
+FROM alpine:3.14.6
 
-COPY --from=python:3.6.13-alpine3.13 /usr/local/ /usr/local/
-COPY --from=python:3.7.10-alpine3.13 /usr/local/ /usr/local/
-COPY --from=python:3.8.8-alpine3.13 /usr/local/ /usr/local/
-COPY --from=python:3.9.2-alpine3.13 /usr/local/ /usr/local/
+COPY --from=python:3.6.13-alpine3.14 /usr/local/ /usr/local/
+COPY --from=python:3.7.10-alpine3.14 /usr/local/ /usr/local/
+COPY --from=python:3.8.8-alpine3.14 /usr/local/ /usr/local/
+COPY --from=python:3.9.2-alpine3.14 /usr/local/ /usr/local/
 COPY --from=python:3.10.4-alpine3.14 /usr/local/ /usr/local/
 
 RUN apk add --no-cache expat gcc libffi musl-dev \
