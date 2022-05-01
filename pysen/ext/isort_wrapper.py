@@ -73,7 +73,7 @@ class IsortSetting(SettingBase):
         # include_trailing_comma: black appends trailing comma
         # force_grid_wrap: the property means isort grid-wrap the statement regardless
         #                  of line length if the number of `from` imports is greater than
-        #                  the property. black doesn't grid wrap the statemenet if it
+        #                  the property. black doesn't grid wrap the statement if it
         #                  doesn't exceed the line length.
         # use_parentheses: use parenthesis for line continuation instead of `\`
         new = copy.deepcopy(self)
