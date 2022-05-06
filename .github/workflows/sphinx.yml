@@ -43,9 +43,8 @@ jobs:
       - run: touch .nojekyll
 
       - run: |
-          cd docs
-          touch _gh-pages/.nojekyll
-          make html
+          touch ./docs/.nojekyll
+          cd docs && make html
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
