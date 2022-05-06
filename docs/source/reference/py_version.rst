@@ -4,3 +4,5 @@ pysen.py_version
 ================
 
 .. autoclass:: VersionRepresentation
+
+.. autoclass:: PythonVersion

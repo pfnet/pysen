@@ -6,3 +6,5 @@ isort
 .. autoclass:: IsortSetting
 
 .. autoclass:: IsortSectionName
+   :members:
+   :undoc-members:
