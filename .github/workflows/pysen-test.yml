@@ -9,13 +9,10 @@ jobs:
     name: Run pysen-test
     runs-on: ubuntu-20.04
     timeout-minutes: 15
-    container:
-      image: quay.io/pysen/pysen-test@sha256:e6ecc68fda873bf269de16cbed734a627232b88cbdf7054c0520a31a57439738
     steps:
     - uses: actions/checkout@v2
       with:
         lfs: false
         path: ${{ env.CHECKOUT_PATH }}
-    - name: Run tox
-      run: |
-        tox --parallel
+    - name: Run test
+      uses: ./.github/actions/pysen-test/

@@ -1,0 +1,11 @@
+name: 'pysen-test'
+description: 'Run pysen test'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  entrypoint: '/bin/bash'
+  args:
+    - '-c'
+    # Changing the ownership is required. See the following link for more details:
+    # https://github.blog/2022-04-12-git-security-vulnerability-announced/
+    - "chown -R $(id -u):$(id -g) . && tox --parallel"
