@@ -42,20 +42,3 @@ To configure such option, you need to create a section ``[[tool.pysen.lint.mypy_
 :class:`~pysen.ext.mypy_wrapper.MypyPlugin` has parameters ``paths`` and ``namespace_packages``.
 Since ``paths`` is equivarent to ``str`` and ``namespace_packages`` is ``bool``, you can set them in the section.
 Note that ``namespace_packages`` is omitted since it is :obj:`False` by default.
-
-
-Exception
-^^^^^^^^^
-
-``version`` in ``[tool.pysen]`` and ``py_version`` in ``[tool.pysen.lint]`` are single strings
-although they are :class:`~pysen.py_version.VersionRepresentation` and
-:class:`~pysen.py_version.PythonVersion`, which have ``major``, ``minor``,
-``patch``, and ``pre_release`` as their attributes.
-
-:class:`~pysen.py_version.VersionRepresentation`
-
-Specify a pysen version (e.g. ``0.10.2``).
-
-:class:`~pysen.py_version.PythonVersion`
-
-Specify one of ``py27``, ``py36``, ``py37``, ``py38``, ``py39``, or ``py310``.
