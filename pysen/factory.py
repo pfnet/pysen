@@ -2,6 +2,8 @@ import dataclasses
 import pathlib
 from typing import Any, Dict, List, Optional
 
+import dacite
+
 from .black import Black, BlackSetting
 from .component import ComponentBase
 from .flake8 import Flake8, Flake8Setting
@@ -16,8 +18,6 @@ from .mypy import (
 )
 from .py_version import PythonVersion
 from .source import Source
-
-import dacite
 
 
 def _parse_python_version(s: Any) -> PythonVersion:
