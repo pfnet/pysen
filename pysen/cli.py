@@ -328,7 +328,7 @@ def cli() -> None:
         "targets",
         type=str,
         help="target to run",
-        choices=runner.get_targets(manifest_args),
+        choices=targets,
         nargs="+",
     )
     run_parser.add_argument(
@@ -344,7 +344,7 @@ def cli() -> None:
         "target",
         type=str,
         help="target to run",
-        choices=runner.get_targets(manifest_args),
+        choices=targets,
     )
     run_files_parser.add_argument("files", type=str, help="target file", nargs="+")
     run_files_parser.add_argument(
