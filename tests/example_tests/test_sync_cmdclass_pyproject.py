@@ -33,4 +33,4 @@ def test_setuptools_sandbox(example_dir: pathlib.Path) -> None:
     setup_py = target / "setup.py"
     assert setup_py.exists()
 
-    sandbox.run_setup(str(setup_py), ["lint"])
+    sandbox.run_setup(str(setup_py), ["lint"])  # type: ignore

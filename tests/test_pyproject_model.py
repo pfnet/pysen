@@ -24,7 +24,7 @@ from pysen.pyproject_model import (
     _parse_plugin_configs,
     _parse_python_version,
     _parse_source,
-    has_tool_section,
+    get_tool_section,
     parse,
 )
 from pysen.source import SourceEntrySetting
@@ -411,11 +411,11 @@ def test_lint_config_update() -> None:
     assert lhs.py_version == PythonVersion(3, 8)
 
 
-def test_has_tool_section() -> None:
+def test_get_tool_section() -> None:
     def _check_example_toml(tool_name: str, filename: str) -> bool:
         path = CONFIG_DIR / filename
         pyproject = tomlkit.loads(path.read_text())
-        return has_tool_section(tool_name, pyproject)
+        return get_tool_section(tool_name, pyproject) is not None
 
     assert not _check_example_toml("pysen", "non_pysen_config.toml")
     assert not _check_example_toml("jiro", "non_pysen_config.toml")

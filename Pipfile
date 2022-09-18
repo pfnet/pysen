@@ -4,14 +4,15 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [packages]
-pysen = {editable = true,extras = ["lint"],path = "."}
+pysen = {editable = true, path = "."}
 pytest = ">=5.4.0,<6.0.0"
 tox = ">=3.15.0,<4.0.0"
-black = "==20.8b1"
+black = "==22.8.0"
 flake8 = "==3.8.4"
 flake8-bugbear = "==20.11.1"
 isort = "==5.1.4"
-mypy = "==0.782"
+mypy = "==0.971"
+types-setuptools = "==65.3.0"
 
 [requires]
-python_version = "3.7"
+python_version = "3.8"

@@ -38,8 +38,8 @@ def _repr_cfg(data: Any) -> Optional[str]:
     elif isinstance(data, PRIMITIVE_TYPES):
         return str(data)
     elif isinstance(data, SEQUENCE_TYPES):
-        items = sorted(_repr_cfg(x) for x in data)
-        return ",".join(x for x in items if x is not None)
+        items = [_repr_cfg(x) for x in data]
+        return ",".join(sorted(x for x in items if x is not None))
     else:
         raise RuntimeError(f"{type(data)} is not supported in cfg")
 

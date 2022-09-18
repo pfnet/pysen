@@ -8,7 +8,10 @@ from typing import IO, List, Optional, Sequence, Tuple
 from .reporter import Reporter
 
 
-def _read_stream(stream: IO[str], reporter: Reporter, loglevel: int) -> str:
+def _read_stream(stream: Optional[IO[str]], reporter: Reporter, loglevel: int) -> str:
+    if stream is None:
+        return ""
+
     ret: List[str] = []
     for line in stream:
         ret.append(line)

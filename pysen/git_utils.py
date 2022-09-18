@@ -10,6 +10,9 @@ _lock = threading.Lock()
 
 try:
     import git
+    from git import Blob  # type: ignore
+
+    # NOTE: Upstream issue: https://github.com/gitpython-developers/GitPython/issues/1349
 
     _git_available = True
 except ImportError:
@@ -51,7 +54,7 @@ def _list_indexed_files(target_dir: pathlib.Path) -> Sequence[pathlib.Path]:
     # We avoid pathlib.Path because the loop calling predicate is performance critical.
     abs_target_dir = os.path.join(str(target_dir.resolve()), "")
 
-    def predicate(item: Tuple[int, git.Blob]) -> bool:
+    def predicate(item: Tuple[int, Blob]) -> bool:
         blob = item[1]
         ret: bool = blob.abspath.startswith(abs_target_dir)
         return ret
@@ -82,7 +85,7 @@ def _check_tracked(path: pathlib.Path) -> bool:
     # TODO(igarashi) use git command directly for better performance
     abspath = str(path.expanduser().resolve())
 
-    def predicate(item: Tuple[int, git.Blob]) -> bool:
+    def predicate(item: Tuple[int, Blob]) -> bool:
         blob = item[1]
         return cast(bool, blob.abspath == abspath)
 

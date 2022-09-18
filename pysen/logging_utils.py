@@ -67,7 +67,7 @@ class _GroupedMemoryHandler(logging.handlers.MemoryHandler):
     def shouldFlush(self, record: logging.LogRecord) -> bool:
         return False
 
-    def setFormatter(self, fmt: logging.Formatter) -> None:
+    def setFormatter(self, fmt: Optional[logging.Formatter]) -> None:
         self.target: Optional[logging.Handler]
         assert self.target is not None
         self.target.setFormatter(fmt)

@@ -11,7 +11,7 @@ from .manifest import ManifestBase
 from .manifest_builder import build
 from .mypy import Mypy
 from .plugin_loader import load_plugin
-from .pyproject_model import Config, LintConfig, has_tool_section, parse
+from .pyproject_model import Config, LintConfig, get_tool_section, parse
 
 _logger = logging.getLogger(__name__)
 TConfig = TypeVar("TConfig")
@@ -109,7 +109,10 @@ def load_manifest(path: pathlib.Path) -> ManifestBase:
 
 def _check_section_exists(config_path: pathlib.Path) -> bool:
     pyproject = tomlkit.loads(config_path.read_text())
-    return has_tool_section("jiro", pyproject) or has_tool_section("pysen", pyproject)
+    return (
+        get_tool_section("jiro", pyproject) is not None
+        or get_tool_section("pysen", pyproject) is not None
+    )
 
 
 def find_config(target_dir: pathlib.Path) -> Optional[pathlib.Path]:

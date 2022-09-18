@@ -1,4 +1,5 @@
 import argparse
+import distutils.core
 import functools
 import pathlib
 import sys
@@ -14,7 +15,7 @@ from .runner import Runner
 from .runner_options import RunOptions
 
 ManifestLikeType = Union[str, pathlib.Path, ManifestBase]
-CommandClassType = Type[setuptools.Command]
+CommandClassType = Type[distutils.core.Command]
 UNDEFINED = object()
 
 _PREDEFINED_COMMAND_NAMES = [
@@ -42,7 +43,7 @@ def _get_setuptool_command(name: str) -> CommandClassType:
         except BaseException:
             pass  # failover
 
-    return setuptools.Command  # type: ignore
+    return setuptools.Command
 
 
 def _get_setuptool_user_options(

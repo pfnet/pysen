@@ -6,7 +6,7 @@ import dacite
 import tomlkit
 
 from .exceptions import InvalidConfigurationError
-from .pyproject_model import _workaround_tomlkit_unmarshal
+from .pyproject_model import _get_descendant, _workaround_tomlkit_unmarshal
 
 
 @dataclasses.dataclass
@@ -27,10 +27,9 @@ def _load_cli_section(path: pathlib.Path) -> Optional[Dict[str, Any]]:
     with path.open("r") as f:
         pyproject = tomlkit.loads(f.read())
 
-    if "tool" not in pyproject or "pysen-cli" not in pyproject["tool"]:
+    section = _get_descendant(pyproject, ["tool", "pysen-cli"])
+    if section is None:
         return None
-
-    section = pyproject["tool"]["pysen-cli"]
 
     data = _workaround_tomlkit_unmarshal(section)
     assert isinstance(data, dict)

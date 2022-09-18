@@ -1,4 +1,6 @@
-import pathlib
+from typing import Optional
+
+from .path import PathLikeType
 
 
 class PysenError(Exception):
@@ -23,12 +25,12 @@ class InvalidConfigurationError(PysenError):
 
 
 class InvalidPluginError(PysenError):
-    def __init__(self, module_path: str, error: str) -> None:
+    def __init__(self, module_path: Optional[PathLikeType], error: str) -> None:
         super().__init__(f"invalid plugin: {module_path}, {error}")
 
 
 class InvalidManifestBuilderError(PysenError):
-    def __init__(self, path: pathlib.Path, error: str) -> None:
+    def __init__(self, path: PathLikeType, error: str) -> None:
         super().__init__(f"invalid manifest builder: {path}, {error}")
 
 

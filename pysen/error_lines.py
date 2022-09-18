@@ -29,8 +29,8 @@ def parse_error_lines(
     """
     number = r"(?:0|[1-9]\d*)"
     _file_path = r"^(?P<file_path>.*?)"
-    _line = fr":(?P<line>{number})"
-    _column = fr"(:(?P<column>{number}))?"
+    _line = rf":(?P<line>{number})"
+    _column = rf"(:(?P<column>{number}))?"
     _message = r": (?P<message>.*$)"
     pattern = _file_path + _line + _column + _message
     invalid_lines = []
