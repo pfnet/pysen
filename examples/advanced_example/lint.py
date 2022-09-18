@@ -20,7 +20,7 @@ def build(
             ),
         },
         mypy_targets=[
-            pysen.MypyTarget([pathlib.Path("."), pathlib.Path("tests")]),
+            pysen.MypyTarget([pathlib.Path(".")]),
             pysen.MypyTarget([pathlib.Path("tools")]),
         ],
     )
