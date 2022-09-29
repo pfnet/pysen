@@ -109,10 +109,7 @@ def load_manifest(path: pathlib.Path) -> ManifestBase:
 
 def _check_section_exists(config_path: pathlib.Path) -> bool:
     pyproject = tomlkit.loads(config_path.read_text())
-    return (
-        has_tool_section("jiro", pyproject) is not None
-        or has_tool_section("pysen", pyproject) is not None
-    )
+    return has_tool_section("jiro", pyproject) or has_tool_section("pysen", pyproject)
 
 
 def find_config(target_dir: pathlib.Path) -> Optional[pathlib.Path]:
