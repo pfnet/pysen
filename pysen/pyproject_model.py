@@ -339,6 +339,13 @@ def get_tool_section(
     return _get_descendant(pyproject, ["tool", tool_name])
 
 
+def has_tool_section(
+    tool_name: str,
+    pyproject: tomlkit.toml_document.TOMLDocument,
+) -> bool:
+    return get_tool_section(tool_name, pyproject) is not None
+
+
 def _load_pysen_section(path: pathlib.Path) -> Dict[str, Any]:
     if not path.exists():
         raise FileNotFoundError(path)
