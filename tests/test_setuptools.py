@@ -45,7 +45,7 @@ def test__get_setuptool_user_options() -> None:
     assert build_py_options is not None
     assert len(build_py_options) > 0
 
-    command_options = _get_setuptool_user_options(setuptools.Command)
+    command_options = _get_setuptool_user_options(setuptools.Command)  # type: ignore
     assert command_options is not None
     assert command_options == []
 

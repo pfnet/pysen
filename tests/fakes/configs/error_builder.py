@@ -7,7 +7,7 @@ from pysen import ComponentBase, Manifest, ManifestBase, Source, factory
 raise BufferError()
 
 
-def build(
+def build(  # type: ignore
     components: Sequence[ComponentBase], src_path: Optional[pathlib.Path]
 ) -> ManifestBase:
     assert src_path is not None

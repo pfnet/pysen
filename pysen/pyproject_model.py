@@ -1,7 +1,7 @@
 import dataclasses
 import logging
 import pathlib
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Sequence
 
 import dacite
 import tomlkit
@@ -317,11 +317,33 @@ def _workaround_tomlkit_unmarshal(data: Any) -> Any:
     return data
 
 
+def _get_descendant(
+    document: tomlkit.toml_document.TOMLDocument, paths: Sequence[str]
+) -> Optional[Any]:
+    assert len(paths) > 0
+
+    node: Dict[str, Any] = document
+    for p in paths[:-1]:
+        e = node.get(p)
+        if not isinstance(e, dict):
+            return None
+        node = e
+
+    return node.get(paths[-1])
+
+
+def get_tool_section(
+    tool_name: str,
+    pyproject: tomlkit.toml_document.TOMLDocument,
+) -> Optional[tomlkit.toml_document.TOMLDocument]:
+    return _get_descendant(pyproject, ["tool", tool_name])
+
+
 def has_tool_section(
     tool_name: str,
     pyproject: tomlkit.toml_document.TOMLDocument,
 ) -> bool:
-    return "tool" in pyproject and tool_name in pyproject["tool"]
+    return get_tool_section(tool_name, pyproject) is not None
 
 
 def _load_pysen_section(path: pathlib.Path) -> Dict[str, Any]:
@@ -331,14 +353,15 @@ def _load_pysen_section(path: pathlib.Path) -> Dict[str, Any]:
     with path.open("r") as f:
         pyproject = tomlkit.loads(f.read())
 
-    if has_tool_section("pysen", pyproject):
-        section = pyproject["tool"]["pysen"]
-    elif has_tool_section("jiro", pyproject):
-        _logger.warning(
-            "jiro section under a config file is deprecated. Use pysen instead."
-        )
-        section = pyproject["tool"]["jiro"]
-    else:
+    section = get_tool_section("pysen", pyproject)
+    if section is None:
+        section = get_tool_section("jiro", pyproject)
+        if section is not None:
+            _logger.warning(
+                "jiro section under a config file is deprecated. Use pysen instead."
+            )
+
+    if section is None:
         raise PysenSectionNotFoundError(str(path))
 
     data = _workaround_tomlkit_unmarshal(section)

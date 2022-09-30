@@ -1,6 +1,7 @@
 import pytest
 import tomlkit
 
+from pysen.pyproject_model import _get_descendant
 from pysen.setting import _create_dict, _traverse_toml
 
 
@@ -27,4 +28,4 @@ def test__traverse_toml() -> None:
     with pytest.raises(ValueError):
         _traverse_toml(("tool", "hoge", "answer"), document, False)
     _traverse_toml(("tool", "hoge", "answer"), document, True)
-    assert document["tool"]["hoge"]["answer"] == {}
+    assert _get_descendant(document, ["tool", "hoge", "answer"]) == {}

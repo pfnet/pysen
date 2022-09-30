@@ -5,7 +5,7 @@ try:
 except ImportError:
     import setuptools
 
-    setup = setuptools.setup
+    setup = setuptools.setup  # type: ignore
 
 
 setup(

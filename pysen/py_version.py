@@ -28,10 +28,10 @@ class VersionRepresentation:
     @classmethod
     def from_str(cls, s: str) -> "VersionRepresentation":
         number = r"(?:0|[1-9]\d*)"
-        major = fr"^(?P<major>{number})"
-        minor = fr"\.(?P<minor>{number})"
-        patch = fr"(\.(?P<patch>{number}))?"
-        pre_release = fr"(?P<pre_release>(a|b|rc){number})?$"
+        major = rf"^(?P<major>{number})"
+        minor = rf"\.(?P<minor>{number})"
+        patch = rf"(\.(?P<patch>{number}))?"
+        pre_release = rf"(?P<pre_release>(a|b|rc){number})?$"
         pattern = major + minor + patch + pre_release
         m = re.match(pattern, s)
 
