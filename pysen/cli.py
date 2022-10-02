@@ -311,6 +311,15 @@ def cli() -> None:
         manifest_parser.add_argument_group("manifest options")
     )
     manifest_args, _ = manifest_parser.parse_known_args()
+    targets = runner.get_targets(manifest_args)
+    if len(targets) == 0:
+        sys.stderr.write(
+            "Did not find any targets.\n"
+            "A [tool.pysen.lint] section may be missing in your\n"
+            "`pyproject.toml` or `pysen.toml`.\n"
+            "See the README for details: https://github.com/pfnet/pysen#readme\n"
+        )
+        sys.exit(1)
 
     action_parser = argparse.ArgumentParser(parents=[manifest_parser], add_help=True)
     subparsers = action_parser.add_subparsers()
@@ -319,7 +328,7 @@ def cli() -> None:
         "targets",
         type=str,
         help="target to run",
-        choices=runner.get_targets(manifest_args),
+        choices=targets,
         nargs="+",
     )
     run_parser.add_argument(
@@ -335,7 +344,7 @@ def cli() -> None:
         "target",
         type=str,
         help="target to run",
-        choices=runner.get_targets(manifest_args),
+        choices=targets,
     )
     run_files_parser.add_argument("files", type=str, help="target file", nargs="+")
     run_files_parser.add_argument(
