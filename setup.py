@@ -43,10 +43,7 @@ setup(
     ],
     extras_require={
         "lint": [
-            "black>=19.10b0,<=20.8",
-            # click>=8.1.0 is incompatible with black.
-            # https://github.com/psf/black/issues/2964
-            "click<8.1.0",
+            "black>=19.10b0,<=22.10",
             "flake8-bugbear",  # flake8 doesn't have a dependency for bugbear plugin
             "flake8>=3.7,<5",
             "isort>=4.3,<5.2.0",
