@@ -190,9 +190,9 @@ class MypyTarget:
 @functools.lru_cache(1)
 def _check_mypy_version() -> None:
     version = get_version("mypy")
-    if version.major != 0 or version.minor < 770:
+    if version.major >= 2 or version.major == 0 and version.minor < 770:
         raise IncompatibleVersionError(
-            f"pysen only supports mypy version >=0.770, <1. "
+            f"pysen only supports mypy version >=0.770, <2. "
             f"version {version} is not supported."
         )
 
