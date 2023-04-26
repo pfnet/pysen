@@ -26,6 +26,7 @@ setup(
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
         "Programming Language :: Python",
         "License :: OSI Approved :: MIT License",
         "Operating System :: POSIX",
@@ -46,7 +47,7 @@ setup(
             "flake8-bugbear",  # flake8 doesn't have a dependency for bugbear plugin
             "flake8>=3.7,<5",
             "isort>=4.3,<5.2.0",
-            "mypy>=0.770,<0.800",
+            "mypy>=0.770,<1.0.0",
         ],
     },
     package_data={"pysen": ["py.typed"]},
