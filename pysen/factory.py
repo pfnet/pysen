@@ -1,6 +1,8 @@
 import dataclasses
 import pathlib
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
+
+import dacite
 
 from .black import Black, BlackSetting
 from .component import ComponentBase
@@ -16,6 +18,16 @@ from .mypy import (
 )
 from .py_version import PythonVersion
 from .source import Source
+
+
+def _parse_python_version(s: Any) -> PythonVersion:
+    if not isinstance(s, str):
+        raise dacite.WrongTypeError(str, s)
+
+    try:
+        return PythonVersion.parse_short_representation(s)
+    except KeyError as e:
+        raise dacite.DaciteError(str(e))
 
 
 @dataclasses.dataclass
@@ -51,7 +63,7 @@ class ConfigureLintOptions:
     mypy_modules: Optional[Dict[str, MypyModuleOption]] = None
     source: Optional[Source] = None
     line_length: Optional[int] = None
-    py_version: Optional[PythonVersion] = None
+    py_version: Optional[str] = None
     isort_known_third_party: Optional[List[str]] = None
     isort_known_first_party: Optional[List[str]] = None
     isort_default_section: Optional[IsortSectionName] = None
@@ -65,7 +77,7 @@ def configure_lint(options: ConfigureLintOptions) -> List[ComponentBase]:
 
     python_version: PythonVersion
     if options.py_version is not None:
-        python_version = options.py_version
+        python_version = _parse_python_version(options.py_version)
     else:
         python_version = PythonVersion(3, 7)
 

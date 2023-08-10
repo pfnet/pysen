@@ -53,7 +53,7 @@ class PluginConfig:
 
 @dataclasses.dataclass
 class Config:
-    version: Optional[VersionRepresentation] = None
+    version: Optional[str] = None
     lint: Optional[LintConfig] = None
     builder: Optional[pathlib.Path] = None
     plugin: Optional[List[PluginConfig]] = None

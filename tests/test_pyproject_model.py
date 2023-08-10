@@ -291,7 +291,7 @@ def test_example() -> None:
     assert lint.enable_mypy
     assert lint.line_length == 88
     assert isinstance(lint.line_length, int)
-    assert lint.py_version == PythonVersion(3, 7)
+    assert lint.py_version == "py37"
     assert lint.isort_known_first_party == ["alpha"]
     assert lint.isort_known_third_party == ["beta", "gamma"]
     assert lint.isort_default_section == IsortSectionName.THIRDPARTY
@@ -337,7 +337,7 @@ def test_simple_source() -> None:
     lint = config.lint
     assert lint.enable_mypy
     assert lint.line_length == 80
-    assert lint.py_version == PythonVersion(2, 7)
+    assert lint.py_version == "py27"
     assert lint.source is not None
     source = lint.source
     assert source.includes == {
@@ -395,7 +395,7 @@ def test_lint_config_update() -> None:
         enable_black=False,
         enable_flake8=True,
         isort_known_first_party=["foo"],
-        py_version=PythonVersion(3, 8),
+        py_version="py38",
     )
 
     lhs.update(rhs)
@@ -408,7 +408,7 @@ def test_lint_config_update() -> None:
     assert lhs.line_length == 80
     assert lhs.isort_known_first_party == ["foo"]
     assert lhs.isort_known_third_party == ["piyo"]
-    assert lhs.py_version == PythonVersion(3, 8)
+    assert lhs.py_version == "py38"
 
 
 def test_has_tool_section() -> None:

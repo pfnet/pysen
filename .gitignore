@@ -36,3 +36,5 @@ pip-wheel-metadata
 
 # editors
 .vscode
+
+docs/_build
