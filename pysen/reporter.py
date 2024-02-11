@@ -12,19 +12,6 @@ from .logging_utils import (
     get_reporter_logger,
 )
 
-_COMMAND_REPR_MAX_LENGTH = 150
-_OMIT_REPR = "..."
-
-
-def _truncate_command_sequence(cmds: str) -> str:
-    if len(cmds) <= _COMMAND_REPR_MAX_LENGTH:
-        return cmds
-
-    prefix_length = _COMMAND_REPR_MAX_LENGTH - len(_OMIT_REPR)
-    assert prefix_length > 0
-    prefix = cmds[:prefix_length]
-    return f"{prefix}{_OMIT_REPR}"
-
 
 class Reporter:
     def __init__(self, name: str) -> None:
@@ -81,7 +68,7 @@ class Reporter:
         self._diagnostics.extend(diagnostics)
 
     def report_command(self, cmd: str) -> None:
-        self._logger.debug(f"> {_truncate_command_sequence(cmd)}")
+        self._logger.debug(f"> {cmd}")
         self._commands.append(cmd)
 
     @property
