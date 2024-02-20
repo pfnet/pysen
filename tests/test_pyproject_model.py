@@ -138,7 +138,7 @@ def test__parse_source() -> None:
 
 
 def test__parse_python_version() -> None:
-    assert _parse_python_version("py37") == PythonVersion(3, 7)
+    assert _parse_python_version("py38") == PythonVersion(3, 8)
     assert _parse_python_version("PY38") == PythonVersion(3, 8)
     with pytest.raises(dacite.DaciteError) as ex:
         _parse_python_version("PY999")
@@ -146,7 +146,7 @@ def test__parse_python_version() -> None:
     assert "one of" in str(ex.value)  # ensure that we suggest some options
 
     with pytest.raises(dacite.WrongTypeError):
-        _parse_python_version(37)
+        _parse_python_version(38)
 
 
 def test__parse_mypy_target() -> None:
@@ -291,7 +291,7 @@ def test_example() -> None:
     assert lint.enable_mypy
     assert lint.line_length == 88
     assert isinstance(lint.line_length, int)
-    assert lint.py_version == PythonVersion(3, 7)
+    assert lint.py_version == PythonVersion(3, 8)
     assert lint.isort_known_first_party == ["alpha"]
     assert lint.isort_known_third_party == ["beta", "gamma"]
     assert lint.isort_default_section == IsortSectionName.THIRDPARTY

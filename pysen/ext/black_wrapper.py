@@ -24,7 +24,7 @@ class BlackSetting(SettingBase):
         # NOTE(igarashi) safe to use as an argument since it is immutable
         py_version: Optional[PythonVersion] = None,
     ) -> "BlackSetting":
-        py_version = py_version or PythonVersion(3, 7)
+        py_version = py_version or PythonVersion(3, 8)
         return BlackSetting(target_version=[py_version])
 
     def export(self) -> Tuple[List[str], Dict[str, Any]]:

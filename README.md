@@ -42,7 +42,7 @@ enable_isort = true
 enable_mypy = true
 mypy_preset = "strict"
 line_length = 88
-py_version = "py37"
+py_version = "py38"
 [[tool.pysen.lint.mypy_targets]]
   paths = ["."]
 ```
@@ -215,7 +215,7 @@ enable_isort = true
 enable_mypy = true
 mypy_preset = "strict"
 line_length = 88
-py_version = "py37"
+py_version = "py38"
 isort_known_third_party = ["numpy"]
 isort_known_first_party = ["pysen"]
 mypy_ignore_packages = ["pysen.generated.*"]

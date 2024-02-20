@@ -4,24 +4,24 @@ from pysen.py_version import PythonVersion, VersionRepresentation
 
 
 def test_python_version() -> None:
-    py37 = PythonVersion(3, 7)
+    py38 = PythonVersion(3, 8)
 
-    assert py37 == PythonVersion(3, 7)
-    assert py37 != PythonVersion(3, 8)
+    assert py38 == PythonVersion(3, 8)
+    assert py38 != PythonVersion(3, 9)
 
-    assert py37.version == "3.7"
-    assert py37.full_representation == "Python3.7"
-    assert py37.short_representation == "py37"
+    assert py38.version == "3.8"
+    assert py38.full_representation == "Python3.8"
+    assert py38.short_representation == "py38"
 
-    py378 = PythonVersion(3, 7, 8)
+    py388 = PythonVersion(3, 8, 8)
 
-    assert py378 == PythonVersion(3, 7, 8)
-    assert py378 != PythonVersion(3, 7, 9)
-    assert py378 != py37
+    assert py388 == PythonVersion(3, 8, 8)
+    assert py388 != PythonVersion(3, 8, 9)
+    assert py388 != py38
 
-    assert py378.version == "3.7.8"
-    assert py378.full_representation == "Python3.7.8"
-    assert py378.short_representation == "py37"
+    assert py388.version == "3.8.8"
+    assert py388.full_representation == "Python3.8.8"
+    assert py388.short_representation == "py38"
 
 
 def test_version_ops() -> None:
