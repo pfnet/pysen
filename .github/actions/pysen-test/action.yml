@@ -2,7 +2,7 @@ name: 'pysen-test'
 description: 'Run pysen test'
 runs:
   using: 'docker'
-  image: 'Dockerfile'
+  image: '../../../assets/Dockerfile'
   entrypoint: '/bin/bash'
   args:
     - '-c'
