@@ -107,7 +107,6 @@ class PythonVersion(VersionRepresentation):
 # NOTE(igarashi): PythonVersion class is immutable
 _PythonVersions = {
     "PY27": PythonVersion(2, 7),
-    "PY37": PythonVersion(3, 7),
     "PY38": PythonVersion(3, 8),
     "PY39": PythonVersion(3, 9),
     "PY310": PythonVersion(3, 10),
