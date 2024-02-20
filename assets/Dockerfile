@@ -14,5 +14,5 @@ RUN apk add --no-cache expat gcc libffi musl-dev \
     -i /usr/local/bin/*3.${MINOR}; done
 
 RUN apk add --no-cache bash git \
-    && pip3.11 install --no-cache-dir tox==3.15.0
+    && pip3.12 install --no-cache-dir tox==3.15.0
 ENV TOX_PARALLEL_NO_SPINNER 1
