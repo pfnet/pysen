@@ -4,13 +4,7 @@ from unittest import mock
 import pytest
 
 from pysen.diagnostic import Diagnostic, FLCMFormatter
-from pysen.reporter import (
-    _COMMAND_REPR_MAX_LENGTH,
-    _OMIT_REPR,
-    Reporter,
-    ReporterFactory,
-    _truncate_command_sequence,
-)
+from pysen.reporter import Reporter, ReporterFactory
 
 BASE_DIR = pathlib.Path(__file__).resolve().parent
 
@@ -86,21 +80,3 @@ def test_reporter_factory() -> None:
 
     out = factory.format_diagnostic_summary(FLCMFormatter)
     assert f"{BASE_DIR / 'hoge.py'}:1:3:foo: error" in out
-
-
-def test__truncate_command_sequence() -> None:
-    assert _truncate_command_sequence("abcde") == "abcde"
-
-    str_a = "a" * _COMMAND_REPR_MAX_LENGTH
-    assert _truncate_command_sequence(str_a) == str_a
-
-    def assert_truncated(original: str, formatted: str) -> None:
-        assert original != formatted
-        assert formatted.endswith(_OMIT_REPR)
-        assert len(formatted) == _COMMAND_REPR_MAX_LENGTH
-
-    str_b = str_a + "a"
-    assert_truncated(str_b, _truncate_command_sequence(str_b))
-
-    str_c = str_a + "a" * 100
-    assert_truncated(str_c, _truncate_command_sequence(str_c))
