@@ -1,7 +1,7 @@
+from importlib.metadata import PackageNotFoundError
 from pathlib import Path
 from unittest import mock
 
-import pkg_resources
 import pytest
 
 from pysen.exceptions import (
@@ -101,7 +101,7 @@ def test__get_isort_version() -> None:
         _get_isort_version.cache_clear()
         return _get_isort_version()
 
-    distro = "pkg_resources.get_distribution"
+    distro = "pysen.dist_version.distribution"
     # pass case
     with mock.patch(distro, return_value=mock.Mock(version="4.3.21")):
         assert get_version() == VersionRepresentation(4, 3, 21)
@@ -114,8 +114,6 @@ def test__get_isort_version() -> None:
     assert "version 3.0.0 is not supported" in str(e)
     # isort cannot be imported
     with pytest.raises(DistributionNotFound) as e:
-        with mock.patch(
-            distro, side_effect=pkg_resources.DistributionNotFound("req", "requires")
-        ):
+        with mock.patch(distro, side_effect=PackageNotFoundError("req", "requires")):
             get_version()
     assert "Expected isort to be installed" in str(e)

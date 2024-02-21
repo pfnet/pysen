@@ -2,7 +2,7 @@
 base = "base2.toml"
 enable_isort = true
 line_length = 88
-py_version = "py37"
+py_version = "py38"
 isort_known_third_party = ["fuga", "piyo"]
 isort_known_first_party = ["foo"]
 

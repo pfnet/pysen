@@ -92,7 +92,7 @@ class Flake8Setting(SettingBase):
 @functools.lru_cache(1)
 def _check_flake8_version() -> None:
     version = get_version("flake8")
-    minimum_supported = VersionRepresentation(3, 7)
+    minimum_supported = VersionRepresentation(3, 8)
     if version < minimum_supported:
         raise IncompatibleVersionError(
             f"pysen only supports flake8 >= {minimum_supported}, "

@@ -67,7 +67,7 @@ def configure_lint(options: ConfigureLintOptions) -> List[ComponentBase]:
     if options.py_version is not None:
         python_version = options.py_version
     else:
-        python_version = PythonVersion(3, 7)
+        python_version = PythonVersion(3, 8)
 
     line_length = options.line_length or 88
 
