@@ -23,9 +23,9 @@ pip install black==21.10b0 flake8==4.0.1 isort==5.10.1 mypy==0.910
 
 ```sh
 # pipenv
-pipenv install --dev "pysen[lint]==0.10.5"
+pipenv install --dev "pysen[lint]==0.10.6"
 # poetry
-poetry add -D pysen==0.10.5 -E lint
+poetry add -D pysen==0.10.6 -E lint
 ```
 
 ## Quickstart: Set up linters using pysen
