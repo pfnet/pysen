@@ -69,15 +69,13 @@ class Flake8Setting(SettingBase):
         if not _contains(new.ignore, "E701"):
             new.ignore.append("E701")
             new._comments.append(
-                # cf. https://black.readthedocs.io/en/stable/guides/using_black_with_other_tools.html#e701-e704
-                "# E701: black will collapse implementations of classes and functions consisting solely of ... to a single line"
+                "# E704: black will collapse ... only functions etc. to a single line"
             )
 
         if not _contains(new.ignore, "E704"):
             new.ignore.append("E704")
             new._comments.append(
-                # cf. https://black.readthedocs.io/en/stable/guides/using_black_with_other_tools.html#e701-e704
-                "# E704: black will collapse implementations of classes and functions consisting solely of ... to a single line"
+                "# E704: black will collapse ... only functions etc. to a single line"
             )
 
         W503_or_504_enabled = _contains(new.ignore, "W503") or _contains(
