@@ -69,7 +69,7 @@ class Flake8Setting(SettingBase):
         if not _contains(new.ignore, "E701"):
             new.ignore.append("E701")
             new._comments.append(
-                "# E704: black will collapse ... only functions etc. to a single line"
+                "# E701: black will collapse ... only functions etc. to a single line"
             )
 
         if not _contains(new.ignore, "E704"):
