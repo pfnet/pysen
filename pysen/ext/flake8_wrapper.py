@@ -66,6 +66,18 @@ class Flake8Setting(SettingBase):
                 "# E501: black may exceed the line-length to follow other style rules"
             )
 
+        if not _contains(new.ignore, "E701"):
+            new.ignore.append("E701")
+            new._comments.append(
+                "# E701: black will collapse ... only functions etc. to a single line"
+            )
+
+        if not _contains(new.ignore, "E704"):
+            new.ignore.append("E704")
+            new._comments.append(
+                "# E704: black will collapse ... only functions etc. to a single line"
+            )
+
         W503_or_504_enabled = _contains(new.ignore, "W503") or _contains(
             new.ignore, "W504"
         )
