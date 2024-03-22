@@ -33,7 +33,7 @@ poetry add -D pysen==0.11.0 -E lint
 Put the following pysen configuration to either `pysen.toml` or `pyproject.toml` of your python package:
 ```toml
 [tool.pysen]
-version = "0.10"
+version = "0.11"
 
 [tool.pysen.lint]
 enable_black = true
@@ -206,7 +206,7 @@ Please refer to `pysen/pyproject_model.py` for the latest model.
 Here is an example of a basic configuration:
 ```toml
 [tool.pysen]
-version = "0.10"
+version = "0.11"
 
 [tool.pysen.lint]
 enable_black = true
