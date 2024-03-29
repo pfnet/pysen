@@ -58,6 +58,7 @@ class ConfigureLintOptions:
     mypy_path: Optional[List[pathlib.Path]] = None
     mypy_plugins: Optional[List[MypyPlugin]] = None
     mypy_targets: Optional[List[MypyTarget]] = None
+    flake8_ignore: Optional[List[str]] = None
 
 
 def configure_lint(options: ConfigureLintOptions) -> List[ComponentBase]:
@@ -98,6 +99,8 @@ def configure_lint(options: ConfigureLintOptions) -> List[ComponentBase]:
 
     if options.enable_flake8:
         flake8_setting = Flake8Setting.default()
+        if options.flake8_ignore:
+            flake8_setting.ignore = options.flake8_ignore
         flake8_setting.max_line_length = line_length
         if options.enable_black:
             flake8_setting = flake8_setting.to_black_compatible()
