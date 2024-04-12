@@ -62,7 +62,7 @@ def test__parse_plugin_configs() -> None:
     }
 
     data_invalid_path = {
-        "location": "donot set this section from pyproject",
+        "location": "don't set this section from pyproject",
         "script": "hoge.py",
     }
     with pytest.raises(dacite.DaciteError) as ex:
