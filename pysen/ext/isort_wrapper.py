@@ -29,9 +29,9 @@ class IsortSectionName(enum.Enum):
 @functools.lru_cache(1)
 def _get_isort_version() -> VersionRepresentation:
     version = get_version("isort")
-    if version.major not in [4, 5]:
+    if version.major not in [4, 5, 6]:
         raise IncompatibleVersionError(
-            "pysen only supports isort versions 4 and 5. "
+            "pysen only supports isort versions 4, 5, and 6. "
             f"version {version} is not supported."
         )
 
