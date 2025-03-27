@@ -24,8 +24,6 @@ isort_known_first_party = ["fakes", "pysen"]
   paths = ["examples/simple_package"]
 [[tool.pysen.lint.mypy_targets]]
   paths = ["examples/plugin_example"]
-[[tool.pysen.lint.mypy_targets]]
-  paths = ["examples/sync_cmdclass_pyproject"]
 
 [tool.pysen.lint.source]
   excludes = ["build/", "dist/", "examples/", ".tox"]

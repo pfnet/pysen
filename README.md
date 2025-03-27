@@ -58,16 +58,6 @@ pysen, or more accurately pysen tasks that support the specified linters, genera
 and run them with the appropriate configuration.
 For more details about the configuration items that you can write in a config file, please refer to `pysen/pyproject_model.py`.
 
-You can also add custom setup commands to your Python package by adding the following lines to its `setup.py`:
-```py
-import pysen
-setup = pysen.setup_from_pyproject(__file__)
-```
-
-```sh
-$ python setup.py lint
-```
-
 We also provide a Python interface for customizing our configuration and extending pysen.
 For more details, please refer to the following two examples:
 - Example configuration from Python: `examples/advanced_example/config.py`
