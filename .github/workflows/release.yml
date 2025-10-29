@@ -5,7 +5,7 @@ on:
 jobs:
   build:
     name: Build packages
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     container:
       image: python:3.8.8-alpine3.13
@@ -25,7 +25,7 @@ jobs:
         path: dist/
   deploy-testpypi:
     name: Deploy packages to test.pypi.org
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     container:
       image: python:3.8.8-alpine3.13
@@ -47,7 +47,7 @@ jobs:
         repository_url: https://test.pypi.org/legacy/
   deploy-pypi:
     name: Deploy packages to pypi.org
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     container:
       image: python:3.8.8-alpine3.13
