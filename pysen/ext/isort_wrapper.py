@@ -128,7 +128,7 @@ def run(
     if len(targets) == 0:
         return 0
 
-    cmd = ["isort", "--settings-path", str(setting_path)]
+    cmd = ["isort", "--settings-path", str(setting_path), "--src", str(base_dir)]
     if version.major == 4:
         cmd.append("--recursive")
     if not inplace_edit:
