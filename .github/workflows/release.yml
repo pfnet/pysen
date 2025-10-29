@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     container:
-      image: python:3.8.8-alpine3.13
+      image: python:3.12.12-alpine3.22
     steps:
     - uses: actions/checkout@v5
     - name: Install dependencies
@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     container:
-      image: python:3.8.8-alpine3.13
+      image: python:3.12.12-alpine3.22
     environment:
       name: test.pypi.org
       url: https://test.pypi.org/project/pysen/
@@ -50,7 +50,7 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     container:
-      image: python:3.8.8-alpine3.13
+      image: python:3.12.12-alpine3.22
     environment:
       name: pypi.org
       url: https://pypi.org/project/pysen/
