@@ -10,7 +10,7 @@ jobs:
     container:
       image: python:3.8.8-alpine3.13
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v5
     - name: Install dependencies
       run: |
         pip install -U pip
@@ -19,7 +19,7 @@ jobs:
       run: |
         python3 setup.py sdist bdist_wheel
     - name: Upload artifacts
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v5
       with:
         name: packages
         path: dist/
@@ -35,7 +35,7 @@ jobs:
     needs: build
     steps:
     - name: Download artifacts
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v6
       with:
         name: packages
         path: dist/
@@ -57,7 +57,7 @@ jobs:
     needs: [build, deploy-testpypi]
     steps:
     - name: Download artifacts
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v6
       with:
         name: packages
         path: dist/
