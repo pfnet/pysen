@@ -1,3 +1,7 @@
+[project]
+name = "example-advanced-package"
+version = "0.0.0"
+
 [tool.pysen]
 builder = "lint.py"
 
