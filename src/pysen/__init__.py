@@ -1,4 +1,3 @@
-import logging
 import pathlib
 from typing import Any, List, Optional, Sequence
 
@@ -25,20 +24,6 @@ from .reporter import ReporterFactory  # NOQA
 from .runner import Runner  # NOQA
 from .runner_options import RunOptions  # NOQA
 from .source import Source  # NOQA
-
-_logger = logging.getLogger(__name__)
-
-
-try:
-    from .setuptools import generate_setting_files  # NOQA isort:skip
-    from .setuptools import setup  # NOQA isort:skip
-    from .setuptools import setup_from_pyproject  # NOQA isort:skip
-except ImportError:
-    _logger.warning(
-        "[pysen.setuptools] failed to import setuptools.\n"
-        "You won't be able to invoke pysen via setuptools.\n"
-        "If you use pysen CLI directly (i.e., `pysen run ...`), you may ignore this warning."
-    )
 
 
 def run(

@@ -1,3 +1,61 @@
+[project]
+name = "pysen"
+dynamic = ["version"]
+dependencies = [
+  "GitPython>=3.0.0,<4.0.0",
+  "colorlog>=4.0.0,<5.0.0",
+  "dacite>=1.1.0,<2.0.0",
+  "tomlkit>=0.5.11,<1.0.0",
+  "unidiff>=0.6.0,<1.0.0",
+]
+requires-python = ">=3.10"
+authors = [
+  { name = "Yuki Igarashi", email = "igarashi@preferred.jp" },
+  { name = "Toru Ogawa", email = "ogawa@preferred.jp" },
+  { name = "Ryo Miyajima", email = "ryo@preferred.jp" },
+  { name = "Linsho Kaku", email = "linsho@preferred.jp" },
+]
+description = "Python linting made easy. Also a casual yet honorific way to address individuals who have entered an organization prior to you."
+readme = "README.md"
+license = "MIT"
+classifiers = [
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Programming Language :: Python",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: POSIX",
+  "Operating System :: MacOS",
+  "Operating System :: Unix",
+]
+
+[project.optional-dependencies]
+lint = [
+  "black>=19.10b0,<=22.10",
+  "flake8>=3.7,<5",
+  "flake8-bugbear",  # flake8 doesn't have a dependency for bugbear plugin
+  "isort>=4.3,<5.2.0",
+  "mypy>=0.770,<0.800",
+]
+
+[project.scripts]
+pysen = "pysen.cli:cli"
+
+[project.urls]
+Repository = "https://github.com/pfnet/pysen.git"
+
+[build-system]
+requires = ["hatchling>=1.25,<2"]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+path = "src/pysen/_version.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/pysen"]
+
 [tool.pysen-cli]
 settings_dir = "."
 
@@ -10,14 +68,10 @@ enable_flake8 = true
 enable_isort = true
 enable_mypy = true
 mypy_preset = "very_strict"
-py_version = "py38"
+py_version = "py310"
 isort_known_first_party = ["fakes", "pysen"]
 [[tool.pysen.lint.mypy_targets]]
-  paths = [
-    "pysen/",
-    "setup.py",
-    "tests/",
-  ]
+  paths = ["src/pysen/", "tests/"]
 [[tool.pysen.lint.mypy_targets]]
   paths = ["examples/advanced_example"]
 [[tool.pysen.lint.mypy_targets]]
