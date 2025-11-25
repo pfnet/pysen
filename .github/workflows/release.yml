@@ -25,8 +25,6 @@ jobs:
     name: Deploy packages to test.pypi.org
     runs-on: ubuntu-24.04
     timeout-minutes: 15
-    container:
-      image: python:3.12.12-slim-trixie
     environment:
       name: test.pypi.org
       url: https://test.pypi.org/project/pysen/
@@ -42,13 +40,11 @@ jobs:
       with:
         user: __token__
         password: ${{ secrets.TEST_PYPI_API_TOKEN }}
-        repository_url: https://test.pypi.org/legacy/
+        repository-url: https://test.pypi.org/legacy/
   deploy-pypi:
     name: Deploy packages to pypi.org
     runs-on: ubuntu-24.04
     timeout-minutes: 15
-    container:
-      image: python:3.12.12-slim-trixie
     environment:
       name: pypi.org
       url: https://pypi.org/project/pysen/
