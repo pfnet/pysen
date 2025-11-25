@@ -12,12 +12,10 @@ jobs:
     steps:
     - uses: actions/checkout@v5
     - name: Install dependencies
-      run: |
-        pip install -U pip
-        pip install wheel
+      run: pip install build
     - name: Build packages
       run: |
-        python3 setup.py sdist bdist_wheel
+        python -m build
     - name: Upload artifacts
       uses: actions/upload-artifact@v5
       with:
