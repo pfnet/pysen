@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     container:
-      image: python:3.12.12-alpine3.22
+      image: python:3.12.12-slim-trixie
     steps:
     - uses: actions/checkout@v5
     - name: Install dependencies
@@ -26,7 +26,7 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     container:
-      image: python:3.12.12-alpine3.22
+      image: python:3.12.12-slim-trixie
     environment:
       name: test.pypi.org
       url: https://test.pypi.org/project/pysen/
@@ -48,7 +48,7 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     container:
-      image: python:3.12.12-alpine3.22
+      image: python:3.12.12-slim-trixie
     environment:
       name: pypi.org
       url: https://pypi.org/project/pysen/
