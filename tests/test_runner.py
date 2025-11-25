@@ -122,7 +122,7 @@ def test_get_target(fake_manifest: FixtureType) -> None:
 
 
 def test_parse_manifest_arguments(
-    fake_manifest_with_options: FixtureType, capsys: CaptureFixture
+    fake_manifest_with_options: FixtureType, capsys: CaptureFixture[str]
 ) -> None:
     ref = [1.0]
     manifest = fake_manifest_with_options(
