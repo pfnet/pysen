@@ -1,3 +1,7 @@
+[project]
+name = "example-plugin-package"
+version = "0.0.0"
+
 [tool.pysen]
 builder = "./builder.py"
 
