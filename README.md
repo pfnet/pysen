@@ -210,6 +210,7 @@ isort_known_third_party = ["numpy"]
 isort_known_first_party = ["pysen"]
 mypy_ignore_packages = ["pysen.generated.*"]
 mypy_path = ["stubs"]
+mypy_exclude = ["exclude1/*"]
 [[tool.pysen.lint.mypy_targets]]
   paths = [".", "tests/"]
 
