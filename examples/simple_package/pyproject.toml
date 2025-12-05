@@ -9,8 +9,8 @@ mypy_preset = "strict"
 line_length = 100
 py_version = "py38"
 mypy_exclude = '''(?x)(
-  excluded1\.py
-  | excluded2\.py
+  ^simple_package/excluded1\.py$
+  | ^simple_package/excluded2\.py$
 )'''  # see https://mypy.readthedocs.io/en/stable/config_file.html#confval-exclude for details
 
 

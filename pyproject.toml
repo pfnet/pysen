@@ -71,7 +71,7 @@ mypy_preset = "very_strict"
 py_version = "py310"
 isort_known_first_party = ["fakes", "pysen"]
 mypy_exclude = '''(?x)(
-  simple_package/excluded.\.py$
+  ^examples/simple_package/simple_package/excluded.\.py$
 )'''
 [[tool.pysen.lint.mypy_targets]]
   paths = ["src/pysen/", "tests/"]
