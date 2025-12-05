@@ -213,7 +213,10 @@ isort_known_third_party = ["numpy"]
 isort_known_first_party = ["pysen"]
 mypy_ignore_packages = ["pysen.generated.*"]
 mypy_path = ["stubs"]
-mypy_exclude = ["exclude1/*"]
+mypy_exclude = '''(?x)(
+    ^example1\.py$
+    | ^example2\.py$
+)'''  # see https://mypy.readthedocs.io/en/stable/config_file.html#confval-exclude for details. TOML lists are NOT supported.
 [[tool.pysen.lint.mypy_targets]]
   paths = [".", "tests/"]
 

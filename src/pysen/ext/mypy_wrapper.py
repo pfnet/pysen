@@ -60,7 +60,7 @@ class MypySetting(SettingBase):
     disallow_untyped_calls: Optional[bool] = None
     disallow_untyped_decorators: Optional[bool] = None
     disallow_untyped_defs: Optional[bool] = None
-    exclude: Optional[List[str]] = None
+    exclude: Optional[str] = None
     follow_imports: Optional[MypyFollowImports] = None
     ignore_errors: Optional[bool] = None
     ignore_missing_imports: Optional[bool] = None

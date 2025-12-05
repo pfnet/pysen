@@ -118,7 +118,7 @@ def test_export_settings() -> None:
             mypy_path=["hoge"],
             plugins=[mypy.MypyPlugin(script=BASE_DIR / pathlib.Path("foo/bar"))],
             disallow_any_decorated=False,
-            exclude=["excluded"],
+            exclude="excluded",
             ignore_missing_imports=False,
             warn_redundant_casts=True,
             follow_imports=mypy.MypyFollowImports.ERROR,
@@ -141,7 +141,7 @@ def test_export_settings() -> None:
     expected = {
         "mypy": {
             "disallow_any_decorated": False,
-            "exclude": ["excluded"],
+            "exclude": "excluded",
             "follow_imports": "error",
             "ignore_missing_imports": False,
             "mypy_path": ["hoge"],
