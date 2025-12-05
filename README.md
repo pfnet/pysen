@@ -87,6 +87,9 @@ A. Explicitly add those files under the include section in `tool.pysen.lint.sour
 Q. How do I add additional settings to my `pyproject.toml`, e.g., [pydantic-mypy](https://pydantic-docs.helpmanual.io/mypy_plugin/#configuring-the-plugin)?  
 A. Add `settings_dir="."` under the `[tool.pysen-cli]` section.
 
+Q. Why doesn't mypy honor `tool.pysen.lint.source` like flake8, black and isort?
+A. pysen internally resolves python files that exist under the specified paths in `tool.pysen.lint.source`, and then feeds the files to flake8, black and isort. However, it doesn't do so for mypy because mypy has its own implementation for listing up the relevant .py files. Instead, users should specify the `tool.pysen.lint.mypy_targets` option and `tool.pysen.lint.mypy_exclude` option as shown in the basic configuration below.
+
 ## What is pysen?
 
 pysen aims to provide a unified platform to configure and run day-to-day development tools.
