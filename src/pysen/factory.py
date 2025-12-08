@@ -55,6 +55,7 @@ class ConfigureLintOptions:
     isort_known_third_party: Optional[List[str]] = None
     isort_known_first_party: Optional[List[str]] = None
     isort_default_section: Optional[IsortSectionName] = None
+    mypy_exclude: Optional[str] = None
     mypy_path: Optional[List[pathlib.Path]] = None
     mypy_plugins: Optional[List[MypyPlugin]] = None
     mypy_targets: Optional[List[MypyTarget]] = None
@@ -111,6 +112,8 @@ def configure_lint(options: ConfigureLintOptions) -> List[ComponentBase]:
         else:
             mypy_setting = MypySetting.strict()
         mypy_setting.python_version = python_version
+        if options.mypy_exclude is not None:
+            mypy_setting.exclude = options.mypy_exclude
         if options.mypy_path is not None:
             mypy_setting.mypy_path = list(options.mypy_path)
         if options.mypy_plugins is not None:
