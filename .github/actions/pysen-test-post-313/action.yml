@@ -1,0 +1,11 @@
+name: 'pysen-test-post-313'
+description: 'Run pysen test, for python versions >= 3.13'
+runs:
+  using: 'docker'
+  image: '../../../version_testing/post_313/Dockerfile'
+  entrypoint: '/bin/bash'
+  args:
+    - '-c'
+    # Changing the ownership is required. See the following link for more details:
+    # https://github.blog/2022-04-12-git-security-vulnerability-announced/
+    - "chown -R $(id -u):$(id -g) . && tox --parallel -e py{313,314}-post313"
