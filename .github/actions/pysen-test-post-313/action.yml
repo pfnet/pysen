@@ -8,4 +8,4 @@ runs:
     - '-c'
     # Changing the ownership is required. See the following link for more details:
     # https://github.blog/2022-04-12-git-security-vulnerability-announced/
-    - "chown -R $(id -u):$(id -g) . && tox --parallel -e py{313,314}-post313"
+    - "chown -R $(id -u):$(id -g) . && tox -e py{313,314}-post313"
