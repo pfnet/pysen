@@ -54,28 +54,27 @@ class Flake8Setting(SettingBase):
 
         if not _contains(new.ignore, "E203"):
             new.ignore.append("E203")
-            new._comments.append("# E203: black treats : as a binary operator")
+            new._comments.append("# (E203) black treats colon as a binary operator")
 
         if not _contains(new.ignore, "E231"):
             new.ignore.append("E231")
-            new._comments.append("# E231: black doesn't put a space after ,")
-
+            new._comments.append("# (E231) black doesn't put a space after ,")
         if not _contains(new.ignore, "E501"):
             new.ignore.append("E501")
             new._comments.append(
-                "# E501: black may exceed the line-length to follow other style rules"
+                "# (E501) black may exceed the line-length to follow other style rules"
             )
 
         if not _contains(new.ignore, "E701"):
             new.ignore.append("E701")
             new._comments.append(
-                "# E701: black will collapse ... only functions etc. to a single line"
+                "# (E701) black will collapse ... only functions etc. to a single line"
             )
 
         if not _contains(new.ignore, "E704"):
             new.ignore.append("E704")
             new._comments.append(
-                "# E704: black will collapse ... only functions etc. to a single line"
+                "# (E704) black will collapse ... only functions etc. to a single line"
             )
 
         W503_or_504_enabled = _contains(new.ignore, "W503") or _contains(
@@ -84,7 +83,7 @@ class Flake8Setting(SettingBase):
         if not W503_or_504_enabled:
             new.ignore.append("W503")
             new._comments.append(
-                "# W503 or W504: either one needs to be disabled to select W error codes"
+                "# (W503 or W504) either one needs to be disabled to select W error codes"
             )
 
         return new
