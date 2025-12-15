@@ -1,6 +1,5 @@
 [project]
 name = "example_post_313"
-dynamic = ["version"]
 requires-python = ">=3.13"
 description = "example project for python version >=3.13"
 
