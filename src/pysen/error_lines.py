@@ -61,7 +61,7 @@ def parse_error_diffs(
     logger: Optional[logging.Logger] = None,
 ) -> Iterable[Diagnostic]:
     """
-    Compatible with isort, black
+    Compatible with isort, black, ruff
     """
 
     def _is_changed(line: unidiff.patch.Line) -> bool:

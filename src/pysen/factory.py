@@ -15,6 +15,7 @@ from .mypy import (
     MypyTarget,
 )
 from .py_version import PythonVersion
+from .ruff import Ruff, RuffSetting
 from .source import Source
 
 
@@ -43,6 +44,7 @@ class MypyModuleOption:
 
 @dataclasses.dataclass
 class ConfigureLintOptions:
+    enable_ruff: Optional[bool] = None
     enable_black: Optional[bool] = None
     enable_flake8: Optional[bool] = None
     enable_isort: Optional[bool] = None
@@ -71,6 +73,19 @@ def configure_lint(options: ConfigureLintOptions) -> List[ComponentBase]:
         python_version = PythonVersion(3, 8)
 
     line_length = options.line_length or 88
+
+    if options.enable_ruff:
+        ruff_setting = RuffSetting.default()
+        ruff_setting.line_length = line_length
+        flake8_setting = Flake8Setting.default().to_black_compatible()
+        ruff_setting.select = flake8_setting.select
+        ruff_setting.ignore = flake8_setting.ignore
+        if options.isort_known_first_party is not None:
+            ruff_setting.known_first_party = list(options.isort_known_first_party)
+        if options.isort_known_third_party is not None:
+            ruff_setting.known_third_party = list(options.isort_known_third_party)
+        ruff = Ruff(setting=ruff_setting, source=options.source)
+        components.append(ruff)
 
     # NOTE: `isort` may format code in a way that violates `black` rules
     # Apply `isort` after `black` to avoid such violation
