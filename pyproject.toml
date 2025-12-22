@@ -72,6 +72,7 @@ py_version = "py310"
 isort_known_first_party = ["fakes", "pysen"]
 mypy_exclude = '''(?x)(
   ^examples/simple_package/simple_package/excluded.\.py$
+  | ^version_testing/.*\.py$
 )'''
 [[tool.pysen.lint.mypy_targets]]
   paths = ["src/pysen/", "tests/"]
@@ -83,7 +84,7 @@ mypy_exclude = '''(?x)(
   paths = ["examples/plugin_example"]
 
 [tool.pysen.lint.source]
-  excludes = ["build/", "dist/", "examples/", ".tox"]
+  excludes = ["build/", "dist/", "examples/", ".tox", "version_testing/"]
 
 [tool.pytest.ini_options]
 markers = ["examples"]

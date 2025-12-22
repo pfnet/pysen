@@ -1,0 +1,17 @@
+[project]
+name = "example_post_313"
+requires-python = ">=3.13"
+description = "example project for python version >=3.13"
+
+[tool.pysen]
+version = "0.11"
+
+[tool.pysen.lint]
+enable_black = true
+enable_flake8 = true
+enable_isort = true
+enable_mypy = true
+mypy_preset = "very_strict"
+py_version = "py313"
+[[tool.pysen.lint.mypy_targets]]
+  paths = ["src"]

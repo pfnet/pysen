@@ -2,10 +2,10 @@ name: 'pysen-test'
 description: 'Run pysen test'
 runs:
   using: 'docker'
-  image: '../../../assets/Dockerfile'
+  image: '../../../version_testing/post_310/Dockerfile'
   entrypoint: '/bin/bash'
   args:
     - '-c'
     # Changing the ownership is required. See the following link for more details:
     # https://github.blog/2022-04-12-git-security-vulnerability-announced/
-    - "chown -R $(id -u):$(id -g) . && tox --parallel"
+    - "chown -R $(id -u):$(id -g) . && tox --parallel -e 'py{310}-dacite150-isort51-black{20,22}-mypy078, py{311,312}-dacite150-isort51-black22-mypy099, development, latest'"
