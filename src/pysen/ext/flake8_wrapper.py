@@ -68,13 +68,13 @@ class Flake8Setting(SettingBase):
         if not _contains(new.ignore, "E701"):
             new.ignore.append("E701")
             new._comments.append(
-                "# (E701) black will collapse ... only functions etc. to a single line"
+                "# (E701) black will collapse multiple statements on one line (colon)"
             )
 
         if not _contains(new.ignore, "E704"):
             new.ignore.append("E704")
             new._comments.append(
-                "# (E704) black will collapse ... only functions etc. to a single line"
+                "# (E704) black will collapse multiple statements on one line (def)"
             )
 
         W503_or_504_enabled = _contains(new.ignore, "W503") or _contains(
