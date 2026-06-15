@@ -1,0 +1,20 @@
+[project]
+name = "example_post_mypy2"
+requires-python = ">=3.13"
+description = "example project for mypy version >=2"
+
+[tool.pysen]
+version = "0.12"
+
+[tool.pysen.lint]
+enable_black = true
+enable_flake8 = true
+enable_isort = true
+enable_mypy = true
+mypy_preset = "very_strict"
+# NOTE: mypy >=2 only supports checking python_version >=3.10. Older py_version
+# values (py27/py38/py39) are rejected by mypy and silently fall back to its
+# minimum supported version. See version_testing/README.md.
+py_version = "py313"
+[[tool.pysen.lint.mypy_targets]]
+  paths = ["src"]
