@@ -23,7 +23,11 @@ def test__check_mypy_version() -> None:
             "pysen.dist_version.distribution",
             return_value=mock.Mock(version=version),
         ):
-            _check_mypy_version()
+            # decouple the version-logic check from the host's sqlite3
+            # availability; the sqlite3 requirement for mypy >=2 is covered by
+            # test__check_mypy_version_requires_sqlite_for_mypy2
+            with mock.patch.dict(sys.modules, {"sqlite3": mock.Mock()}):
+                _check_mypy_version()
 
     # supported: >=0.770, <3
     check("0.770")
