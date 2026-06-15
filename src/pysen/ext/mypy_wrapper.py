@@ -8,7 +8,7 @@ from pysen import process_utils
 from pysen.command import check_command_installed
 from pysen.dist_version import get_version
 from pysen.error_lines import parse_error_lines
-from pysen.exceptions import IncompatibleVersionError
+from pysen.exceptions import IncompatibleVersionError, PysenError
 from pysen.path import PathLikeType, change_dir, get_relative_path, resolve_path
 from pysen.py_version import PythonVersion
 from pysen.reporter import Reporter
@@ -196,6 +196,20 @@ def _check_mypy_version() -> None:
             f"pysen only supports mypy version >=0.770, <3. "
             f"version {version} is not supported."
         )
+    if version.major >= 2:
+        # mypy >=2 uses a sqlite-backed cache by default, which requires the
+        # stdlib sqlite3 module (and the underlying libsqlite3 shared library)
+        # to be importable. Fail early with an actionable message instead of
+        # letting mypy crash with an INTERNAL ERROR.
+        try:
+            import sqlite3  # noqa: F401
+        except ImportError as e:
+            raise PysenError(
+                f"mypy {version} requires the sqlite3 module for its cache, "
+                f"but it could not be imported ({e}). Please install sqlite "
+                f"(e.g. the libsqlite3 / sqlite-libs system package) and "
+                f"rebuild Python with sqlite3 support."
+            ) from e
 
 
 def run(

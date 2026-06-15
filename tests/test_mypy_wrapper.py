@@ -1,9 +1,10 @@
 import pathlib
+import sys
 from unittest import mock
 
 import pytest
 
-from pysen.exceptions import IncompatibleVersionError
+from pysen.exceptions import IncompatibleVersionError, PysenError
 from pysen.ext.mypy_wrapper import MypyPlugin, MypyTarget, _check_mypy_version, run
 from pysen.reporter import Reporter
 
