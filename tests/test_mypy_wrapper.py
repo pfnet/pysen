@@ -38,6 +38,25 @@ def test__check_mypy_version() -> None:
             check(version)
 
 
+def test__check_mypy_version_requires_sqlite_for_mypy2() -> None:
+    def check(version: str) -> None:
+        _check_mypy_version.cache_clear()
+        with mock.patch(
+            "pysen.dist_version.distribution",
+            return_value=mock.Mock(version=version),
+        ):
+            # setting the entry to None makes `import sqlite3` raise ImportError
+            with mock.patch.dict(sys.modules, {"sqlite3": None}):
+                _check_mypy_version()
+
+    # mypy >=2 requires sqlite3
+    with pytest.raises(PysenError, match="sqlite3"):
+        check("2.0.0")
+
+    # mypy <2 does not need sqlite3
+    check("1.19.0")
+
+
 def test_mypy_plugin() -> None:
     script_plugin = MypyPlugin(script=pathlib.Path("/foo/bar/baz"))
     script_plugin2 = MypyPlugin(script=pathlib.Path("./bar/baz"))
