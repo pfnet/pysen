@@ -90,7 +90,7 @@ piyo = "description"
     x = "Hello"
     y = 42
     z = ["1", "2", "3"]
-"""
+"""  # NOQA: B950
 
     with temp_file.open("r") as f:
         actual = f.read()
