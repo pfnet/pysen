@@ -23,9 +23,9 @@ pip install black==21.10b0 flake8==4.0.1 isort==5.10.1 mypy==0.910
 
 ```sh
 # pipenv
-pipenv install --dev "pysen[lint]==0.12.0"
+pipenv install --dev "pysen[lint]==0.12.1"
 # poetry
-poetry add -D pysen==0.12.0 -E lint
+poetry add -D pysen==0.12.1 -E lint
 ```
 
 ## Quickstart: Set up linters using pysen
@@ -33,7 +33,7 @@ poetry add -D pysen==0.12.0 -E lint
 Put the following pysen configuration to either `pysen.toml` or `pyproject.toml` of your python package:
 ```toml
 [tool.pysen]
-version = "0.11"
+version = "0.12"
 
 [tool.pysen.lint]
 enable_black = true
